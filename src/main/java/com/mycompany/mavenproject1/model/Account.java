@@ -17,6 +17,7 @@ public class Account {
     private String gebruikersnaam;
     private String wachtwoord;
     private Date datum_aanmaak;
+    private int accountype_id;
     
     
     public Account(){
@@ -54,6 +55,14 @@ public class Account {
 
     public void setDatum_Aanmaak (Date datum_aanmaak) {
         this.datum_aanmaak = datum_aanmaak;
+    }
+    
+    public int getAccountype_id () {
+        return accountype_id;
+    }
+    
+    public void setAccountype_id (int accountype_id){
+        this.accountype_id = accountype_id;
     }
     
     

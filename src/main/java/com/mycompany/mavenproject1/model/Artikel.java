@@ -27,9 +27,6 @@ public class Artikel {
     public void setIdArtikel(int idArtikel) {
         this.idArtikel = idArtikel;
     }
-
-    
-
    
 
     public String getNaam() {

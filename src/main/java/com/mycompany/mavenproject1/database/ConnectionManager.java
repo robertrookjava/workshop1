@@ -17,13 +17,13 @@ public class ConnectionManager {
     private static String username = "root";   
     private static String password = "ultimatejazz";
     private static Connection connection;
-    private static String urlstring;
+  
 
     public static Connection getConnection() {
         try {
             Class.forName(driverName);
             try {
-                connection = DriverManager.getConnection(urlstring, username, password);
+                connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException ex) {
                 // log an exception..
                 // System.out.println("Failed to create the database connection.");
@@ -37,13 +37,6 @@ public class ConnectionManager {
         return connection;
     }
     
-    public static void closeConnection() {
-        try{
-            connection.close();
-        }
-        catch (Exception ex){
-            System.out.println("Exception thrown  :" + ex);
-        }
-    }
+    
     
 }
