@@ -125,31 +125,27 @@ public class ArtikelDAO {
     
      public Set<Artikel> readByNaam(Artikel artikel) throws SQLException {
          
-         
+       
         Set<Artikel> artikelen = new HashSet<>();
-        
+        ;
         connection = ConnectionManager.getConnection();
         
-        String query = "SELECT * FROM Artikel WHERE Artikel.naam = ?";
-        
-        
-     
+        String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, artikel.getNaam());
-        ResultSet result = preparedStatement.executeQuery(query);
-            
+        ResultSet result = preparedStatement.executeQuery();
+        
         while(result.next()){
             Artikel artikelGevonden = new Artikel();
-            artikel.setIdArtikel(result.getInt("idArtikel"));
-            artikel.setNaam(result.getString("naam"));
-            artikel.setPrijs(result.getBigDecimal("prijs"));
-            artikel.setVoorraad(result.getInt("voorraad"));
+            artikelGevonden.setIdArtikel(result.getInt("idArtikel"));
+            artikelGevonden.setNaam(result.getString("naam"));
+            artikelGevonden.setPrijs(result.getBigDecimal("prijs"));
+            artikelGevonden.setVoorraad(result.getInt("voorraad"));
             artikelen.add(artikelGevonden);
           }
         
             connection.close();
       
-        
         return artikelen;
             
             

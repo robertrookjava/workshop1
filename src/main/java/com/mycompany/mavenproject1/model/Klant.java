@@ -62,7 +62,7 @@ public class Klant {
     }
     
     
-    public String Telefoonnummer() {
+    public String getTelefoonnummer() {
         return telefoonnummer;
     }
 

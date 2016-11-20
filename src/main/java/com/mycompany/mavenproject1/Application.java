@@ -18,11 +18,20 @@ import com.mycompany.mavenproject1.robertclasses.Test;
  */
 public class Application {
     
-    private static Connection connection;
+    private static boolean test = true;
     
     public static void main(String[] args) {
-        Test.test();
+        if (test) {
+            Test.test();
+        }
+        else {
+            run();
+        }
         
+    }
+    
+    public static void run(){
+       System.out.println("Runnen met die handel");
     }
     
     

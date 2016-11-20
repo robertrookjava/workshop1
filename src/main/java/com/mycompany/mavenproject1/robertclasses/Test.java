@@ -7,8 +7,11 @@ package com.mycompany.mavenproject1.robertclasses;
 
 import com.mycompany.mavenproject1.database.dao.ArtikelDAO;
 import com.mycompany.mavenproject1.model.Artikel;
+import com.mycompany.mavenproject1.database.dao.KlantDAO;
+import com.mycompany.mavenproject1.model.Klant;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  *
@@ -31,12 +34,24 @@ public class Test {
      
      public static void test(){
          //testDatabaseConnection();
+         
          //testArtikelCreate();
          //testArtikelDelete();
          //testReadByArtikelID();
          //testUpdateArtikel();
+         //testReadByNameArtikel();
+         //testReadAllArtikel();
+         
+         //testCreateKlant();
+         //testDeleteKlant();
+         //testReadByIDKlant();
+         //testUpdateKlant();
+         //testReadAllKlant();
+         //testReadByAchternaamKlant();
          
      }
+     
+     // test ArtikelDAO
      
       public static void testArtikelCreate(){
         
@@ -126,8 +141,216 @@ public class Test {
     }
     
     public static void testReadAllArtikel (){
+        ArtikelDAO artikelDao = new ArtikelDAO();
+     
+        try {
+        Set<Artikel> artikelen = artikelDao.readAll();
+       
+            for (Artikel x:artikelen){         
+                System.out.println(x.getIdArtikel());
+                System.out.println(x.getNaam());
+                System.out.println(x.getPrijs());
+                System.out.println(x.getVoorraad());
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+          
+    }
+    
+    public static void testReadByNameArtikel(){
+        
+        ArtikelDAO artikelDao = new ArtikelDAO();
+        Artikel artikel = new Artikel();
+      
+        try {
+        Set<Artikel> artikelen = artikelDao.readAll();
+            for (Artikel x:artikelen){
+                System.out.println("In de loop");
+                System.out.println(x.getIdArtikel());
+                System.out.println(x.getNaam());
+                System.out.println(x.getPrijs());
+                System.out.println(x.getVoorraad());
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
         
     }
+    
+    // test KlantDAO
+    
+     public static void testCreateKlant(){
+        
+       KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+       
+        
+        klant.setIdKlant(0);
+        klant.setVoornaam("voornaam6");
+        klant.setAchternaam("achternaam6");
+        klant.setTussenvoegsel("tussenvoegsel6");
+        klant.setTelefoonnummer("telefoonnummer6");
+        klant.setEmailadres("emailadres6");
+        
+        try {
+            klantDao.create(klant);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);    
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+
+    }
+      
+    public static void testDeleteKlant() {
+        KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+        klant.setIdKlant(4);
+        try {
+            klantDao.delete(klant);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+    
+    
+    public static void testReadByIDKlant(){
+        
+        KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+        
+        klant.setIdKlant(5);
+        
+        
+        try {
+            Klant gevondenKlant = klantDao.readByIdKLant(klant);
+            
+            System.out.println(gevondenKlant.getVoornaam());
+            System.out.println(gevondenKlant.getAchternaam());
+            System.out.println(gevondenKlant.getTussenvoegsel());
+            System.out.println(gevondenKlant.getTelefoonnummer());
+            System.out.println(gevondenKlant.getEmailadres());
+        }
+          catch (SQLException ex) {
+          System.out.println(ex);  
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+   
+    }
+    
+    public static void testUpdateKlant() {
+        
+        KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+        klant.setIdKlant(3);
+        klant.setVoornaam("voornaam3");
+        klant.setAchternaam("achternaam2");
+        klant.setTussenvoegsel("tussenvoegsel3");
+        klant.setTelefoonnummer("telefoonnummer3");
+        klant.setEmailadres("emailadres3");
+        
+        try {
+            klantDao.update(klant);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+    }
+    
+    public static void testReadAllKlant() {
+        KlantDAO klantDao = new KlantDAO();
+     
+        try {
+            Set<Klant> klanten = klantDao.readAll();
+       
+            for (Klant x:klanten) {         
+                System.out.println(x.getIdKlant());
+                System.out.println(x.getVoornaam());
+                System.out.println(x.getAchternaam());
+                System.out.println(x.getTussenvoegsel());
+                System.out.println(x.getTelefoonnummer());
+                System.out.println(x.getEmailadres());    
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+          
+    }
+    
+    public static void testReadByAchternaamKlant(){
+        
+        KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+        klant.setAchternaam("achternaam2");
+        
+        
+        try {
+            Set<Klant> klanten = klantDao.readByAchternaamKlant(klant);
+            for (Klant x:klanten) {         
+                System.out.println(x.getIdKlant());
+                System.out.println(x.getVoornaam());
+                System.out.println(x.getAchternaam());
+                System.out.println(x.getTussenvoegsel());
+                System.out.println(x.getTelefoonnummer());
+                System.out.println(x.getEmailadres());    
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);  
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+    
+     
+ 
+        
+    }
+    
+    
     
     
     
