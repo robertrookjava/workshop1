@@ -18,7 +18,7 @@ public class Bestelling {
     private int idAccount;
     
     public Bestelling(){
-        datum_bestelling = new Date();
+        // datum_bestelling = new Date();
     }
 
     public int getIdBestelling() {

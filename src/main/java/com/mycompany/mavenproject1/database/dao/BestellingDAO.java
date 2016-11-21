@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -24,24 +25,25 @@ public class BestellingDAO {
     private Connection connection;
     
     
-    public void create(Klant klant) throws SQLException  {
+    public void create(Bestelling bestelling) throws SQLException  {
         
         
         connection = ConnectionManager.getConnection();
         // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
         //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
         
-        String query = "INSERT INTO KLANT"
-		+ "(IDKLANT, VOORNAAM, ACHTERNAAM, TUSSENVOEGSEL, TELEFOONNUMMER, EMAILADRES) VALUES"
-		+ "(?,?,?,?,?,?)";
+        String query = "INSERT INTO BESTELLING"
+		+ "(IDBESTELLING, IDKLANT, DATUM_BESTELLING, IDACCOUNT) VALUES"
+		+ "(?,?,?,?)";
+        
+        
         
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, klant.getIdKlant());
-        preparedStatement.setString(2, klant.getVoornaam());
-        preparedStatement.setString(3, klant.getAchternaam());
-        preparedStatement.setString (4, klant.getTussenvoegsel());
-        preparedStatement.setString (5, klant.getTelefoonnummer());
-        preparedStatement.setString (6, klant.getEmailadres());
+        preparedStatement.setInt(1, bestelling.getIdBestelling());
+        preparedStatement.setInt(2, bestelling.getIdKlant());
+        java.util.Date date = bestelling.getDatum_Bestelling();   
+        preparedStatement.setDate(3, new java.sql.Date(date.getTime()));
+        preparedStatement.setInt (4, bestelling.getIdAccount());
         
         preparedStatement.executeUpdate();
         
@@ -50,104 +52,102 @@ public class BestellingDAO {
          
     }
     
-    public void delete(Klant klant) throws SQLException  {
+    public void delete(Bestelling bestelling) throws SQLException  {
         
         // Load the JDBC MySQL Driver
         connection = ConnectionManager.getConnection();
 
-        String query = "DELETE FROM Klant WHERE idKlant = ?";
+        String query = "DELETE FROM Bestellling WHERE idBestelling = ?";
         
        
         preparedStatement = connection.prepareStatement(query);
             
             
-        preparedStatement.setInt(1, klant.getIdKlant());
+        preparedStatement.setInt(1, bestelling.getIdBestelling());
         preparedStatement.executeUpdate();
         connection.close();
         
     }
     
-    public Klant readByIdKLant (Klant klant) throws SQLException {
+    public Bestelling readByIdBestelling (Bestelling bestelling) throws SQLException {
         
-        Klant gevondenKlant = new Klant();
+        Bestelling gevondenBestelling = new Bestelling();
         
         connection = ConnectionManager.getConnection();
         
-        String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
+        String query = "SELECT * FROM Bestelling WHERE idBestelling = ?";
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, klant.getIdKlant());
+        preparedStatement.setInt(1, bestelling.getIdBestelling());
         ResultSet result = preparedStatement.executeQuery();
             
         if (result.next()){
-            gevondenKlant.setIdKlant(result.getInt("idKlant"));
-            gevondenKlant.setVoornaam(result.getString("Voornaam"));
-            gevondenKlant.setAchternaam(result.getString("Achternaam"));
-            gevondenKlant.setTussenvoegsel(result.getString("Tussenvoegsel"));
-            gevondenKlant.setTelefoonnummer(result.getString("Telefoonnummer"));
-            gevondenKlant.setEmailadres(result.getString("Emailadres"));
+            gevondenBestelling.setIdBestelling(result.getInt("idBestelling"));
+            gevondenBestelling.setIdKlant(result.getInt("idKlant"));
+            gevondenBestelling.setDatum_Bestelling(result.getDate("Datum_Bestelling"));
+            gevondenBestelling.setIdAccount(result.getInt("idAccount"));
+            
         }
      
         connection.close();
         
-        return gevondenKlant;
+        return gevondenBestelling;
         
     }
     
-    public Set<Klant> readAll() throws SQLException  {
+    public Set<Bestelling> readAll() throws SQLException  {
         
-        Set<Klant> klanten = new HashSet<>();
+        Set<Bestelling> bestellingen = new HashSet<>();
       
         
         connection = ConnectionManager.getConnection();
        
-        String query = "SELECT * FROM Klant";
+        String query = "SELECT * FROM Bestelling";
         preparedStatement = connection.prepareStatement(query);
         ResultSet result = preparedStatement.executeQuery(query);
             
         while(result.next()){
-            Klant klant = new Klant();
-            klant.setIdKlant(result.getInt("idKlant"));
-            klant.setVoornaam(result.getString("Voornaam"));
-            klant.setAchternaam(result.getString("Achternaam"));
-            klant.setTussenvoegsel(result.getString("Tussenvoegsel"));
-            klant.setTelefoonnummer(result.getString("Telefoonnummer"));
-            klant.setEmailadres(result.getString("Emailadres"));
-            klanten.add(klant);
+            Bestelling bestelling = new Bestelling();
+            bestelling.setIdBestelling(result.getInt("idBestelling"));
+            bestelling.setIdKlant(result.getInt("idKlant"));
+            bestelling.setDatum_Bestelling(result.getDate("Datum_Bestelling"));
+            bestelling.setIdAccount(result.getInt("idAccount"));
+            
+            bestellingen.add(bestelling);
             }
        
             connection.close();
   
-        return klanten;
+        return bestellingen;
     }
     
-     public Set<Klant> readByAchternaamKlant(Klant klant) throws SQLException {
+     public Set<Bestelling> readByIdKlant(Bestelling bestelling) throws SQLException {
          
        
-        Set<Klant> klanten = new HashSet<>();
+        Set<Bestelling> bestellingen = new HashSet<>();
        
         
         connection = ConnectionManager.getConnection();
         
-        String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
+        String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, klant.getAchternaam());
+        preparedStatement.setInt(1, bestelling.getIdKlant());
         ResultSet result = preparedStatement.executeQuery();
         
         while(result.next()){
-            Klant klantGevonden = new Klant();
-            klantGevonden.setIdKlant(result.getInt("idKlant"));
-            klantGevonden.setVoornaam(result.getString("Voornaam"));
-            klantGevonden.setAchternaam(result.getString("Achternaam"));
-            klantGevonden.setTussenvoegsel(result.getString("Tussenvoegsel"));
-            klantGevonden.setTelefoonnummer(result.getString("Telefoonnummer"));
-            klantGevonden.setEmailadres(result.getString("Emailadres"));
+            Bestelling bestellingGevonden = new Bestelling();
+            bestellingGevonden.setIdBestelling(result.getInt("idBestelling"));
+            bestellingGevonden.setIdKlant(result.getInt("idKlant"));
+            bestellingGevonden.setDatum_Bestelling(result.getDate("Datum_Bestelling"));
+            bestellingGevonden.setIdAccount(result.getInt("idAccount"));
             
-            klanten.add(klantGevonden);
-          }
+            bestellingen.add(bestellingGevonden);
+            
+           
+         }
         
             connection.close();
       
-        return klanten;
+        return bestellingen;
             
             
         
@@ -155,24 +155,24 @@ public class BestellingDAO {
     }
      
      
-     public void update(Klant klant) throws SQLException  {
+     public void update(Bestelling bestelling) throws SQLException  {
         
         connection = ConnectionManager.getConnection();
         
         
         
-        String query = "UPDATE Klant SET Klant.Voornaam = ?, "
-                + "klant.Achternaam = ?, klant.Tussenvoegsel = ?, klant.Telefoonnummer = ?, "
-                + "klant.Emailadres = ?"
-                + "WHERE Klant.idKlant = ?";
+        String query = "UPDATE Bestelling SET idKlant = ?, "
+                + "Datum_Bestelling = ?, idAccount = ? "
+                + "WHERE Bestelling.idBestelling = ?";
                             
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, klant.getVoornaam());
-        preparedStatement.setString(2, klant.getAchternaam());
-        preparedStatement.setString(3, klant.getTussenvoegsel());
-        preparedStatement.setString(4, klant.getTelefoonnummer());
-        preparedStatement.setString(5, klant.getEmailadres());
-        preparedStatement.setInt(6, klant.getIdKlant());
+        preparedStatement.setInt(1, bestelling.getIdKlant());
+        
+        java.util.Date date = bestelling.getDatum_Bestelling();   
+        preparedStatement.setDate(2, new java.sql.Date(date.getTime()));
+        
+        preparedStatement.setInt(3, bestelling.getIdAccount());
+        preparedStatement.setInt(4, bestelling.getIdBestelling());
         preparedStatement.executeUpdate();
     
         connection.close();
