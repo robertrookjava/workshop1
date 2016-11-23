@@ -11,6 +11,9 @@ import com.mycompany.mavenproject1.database.dao.KlantDAO;
 import com.mycompany.mavenproject1.model.Klant;
 import com.mycompany.mavenproject1.database.dao.BestellingDAO;
 import com.mycompany.mavenproject1.model.Bestelling;
+import com.mycompany.mavenproject1.database.dao.BestelArtikelDAO;
+import com.mycompany.mavenproject1.model.BestelArtikel;
+
 import java.util.*;
 
 
@@ -61,14 +64,14 @@ public class Test {
          //testReadByIdBestelling();
          //testReadAllBestelling();
          //testReadByIdKlantBestelling();
-         testUpdateBestelling();
+         //testUpdateBestelling();
          
          //testCreateBestelArtikel();
          //testDeleteBestelArtikel();
          //testReadByIdBestellingIdArtikel();
-         //testRealAllbestelArtikel();
+         //testReadAllBestelArtikel();
          //testReadByIdBestellingBestelArtikel()
-         //testUpdateBestelArtikel(
+         testUpdateBestelArtikel();
          
          
          
@@ -223,15 +226,14 @@ public class Test {
     }
     
     public static void testCreateBestelArtikel(){
-        BestellingDAO bestellingDao = new BestellingDAO();
-        Bestelling bestelling = new Bestelling();
-        bestelling.setIdBestelling(0);
-        bestelling.setIdKlant(6);
-        bestelling.setDatum_Bestelling(new Date());
-        bestelling.setIdAccount(1);
+        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikel bestelArtikel = new BestelArtikel();
+        bestelArtikel.setIdBestelling(5);
+        bestelArtikel.setIdArtikel(5);
+        bestelArtikel.setAantal(5);
         
         try {
-            bestellingDao.create(bestelling);
+            bestelArtikelDoa.create(bestelArtikel);
         }
         catch (SQLException ex) {
           System.out.println(ex);
@@ -244,11 +246,13 @@ public class Test {
     }
     
     public static void testDeleteBestelArtikel(){
-        BestellingDAO bestellingDao = new BestellingDAO();
-        Bestelling bestelling = new Bestelling();
-        bestelling.setIdBestelling(3);
+        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikel bestelArtikel = new BestelArtikel();
+        bestelArtikel.setIdBestelling(4);
+        bestelArtikel.setIdArtikel(4);
+        
         try {
-            bestellingDao.delete(bestelling);
+            bestelArtikelDoa.delete(bestelArtikel);
         }
         catch (SQLException ex) {
           System.out.println(ex);
@@ -261,16 +265,15 @@ public class Test {
     }
     
     public static void testReadByIdBestellingIdArtikel(){
-        BestellingDAO bestellingDao = new BestellingDAO();
-        Bestelling bestelling = new Bestelling();
-        bestelling.setIdBestelling(4);
-        
-        
+        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikel bestelArtikel = new BestelArtikel();
+        bestelArtikel.setIdBestelling(2);
+        bestelArtikel.setIdArtikel(2);
         try {
-            Bestelling gevondenBestelling = bestellingDao.readByIdBestelling(bestelling);
-            System.out.println(gevondenBestelling.getIdKlant());
-            System.out.println(gevondenBestelling.getDatum_Bestelling());
-            System.out.println(gevondenBestelling.getIdAccount());
+            BestelArtikel gevondenBestelArtikel=bestelArtikelDoa.readByIdBestellingIdArtikel(bestelArtikel);
+            System.out.println(gevondenBestelArtikel.getIdBestelling());
+            System.out.println(gevondenBestelArtikel.getIdArtikel());
+            System.out.println(gevondenBestelArtikel.getAantal());
         }
         catch (SQLException ex) {
           System.out.println(ex);
@@ -285,17 +288,16 @@ public class Test {
         
     }
     
-    public static void testRealAllBestelArtikel(){
-        ArtikelDAO artikelDao = new ArtikelDAO();
+    public static void testReadAllBestelArtikel(){
+        BestelArtikelDAO bestelArtikelDao = new BestelArtikelDAO();
      
         try {
-        Set<Artikel> artikelen = artikelDao.readAll();
+        Set<BestelArtikel> bestelArtikelen = bestelArtikelDao.readAll();
        
-            for (Artikel x:artikelen){         
+            for (BestelArtikel x:bestelArtikelen){         
+                System.out.println(x.getIdBestelling());
                 System.out.println(x.getIdArtikel());
-                System.out.println(x.getNaam());
-                System.out.println(x.getPrijs());
-                System.out.println(x.getVoorraad());
+                System.out.println(x.getAantal());
                 System.out.println();
              
             }
@@ -311,16 +313,17 @@ public class Test {
     }
     
     public static void testReadByIdBestellingBestelArtikel(){
-        ArtikelDAO artikelDao = new ArtikelDAO();
-     
+        BestelArtikelDAO bestelArtikelDao = new BestelArtikelDAO();
+        BestelArtikel bestelArtikel = new BestelArtikel();
+        bestelArtikel.setIdBestelling(2);
+        
         try {
-        Set<Artikel> artikelen = artikelDao.readAll();
+        Set<BestelArtikel> bestelArtikelen = bestelArtikelDao.readByIdBestelling(bestelArtikel);
        
-            for (Artikel x:artikelen){         
+            for (BestelArtikel x:bestelArtikelen){         
+                System.out.println(x.getIdBestelling());
                 System.out.println(x.getIdArtikel());
-                System.out.println(x.getNaam());
-                System.out.println(x.getPrijs());
-                System.out.println(x.getVoorraad());
+                System.out.println(x.getAantal());
                 System.out.println();
              
             }
@@ -336,15 +339,14 @@ public class Test {
     }
     
     public static void testUpdateBestelArtikel(){
-        ArtikelDAO artikelDao = new ArtikelDAO();
-        Artikel artikel = new Artikel();
-        artikel.setIdArtikel(20);
-        artikel.setNaam("nieuwe naam1");
-        artikel.setPrijs(new BigDecimal("56.78"));
-        artikel.setVoorraad(99);
+        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikel bestelArtikel = new BestelArtikel();
+        bestelArtikel.setIdBestelling(2);
+        bestelArtikel.setIdArtikel(2);
+        bestelArtikel.setAantal(4);
         
         try {
-            artikelDao.update(artikel);
+            bestelArtikelDoa.update(bestelArtikel);
         }
         catch (SQLException ex) {
           System.out.println(ex);

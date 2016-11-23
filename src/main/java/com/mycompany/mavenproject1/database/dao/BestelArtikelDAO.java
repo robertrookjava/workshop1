@@ -32,7 +32,7 @@ public class BestelArtikelDAO {
         // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
         //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
         
-        String query = "INSERT INTO BESTELLARTIKEL"
+        String query = "INSERT INTO BESTELARTIKEL"
 		+ "(IDBESTELLING, IDARTIKEL, AANTAL) VALUES"
 		+ "(?,?,?)";
         
@@ -55,7 +55,7 @@ public class BestelArtikelDAO {
         // Load the JDBC MySQL Driver
         connection = ConnectionManager.getConnection();
 
-        String query = "DELETE FROM BestelArtike WHERE idBestelling = ? and idArtikel = ?";
+        String query = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
         
        
         preparedStatement = connection.prepareStatement(query);
@@ -74,7 +74,7 @@ public class BestelArtikelDAO {
         
         connection = ConnectionManager.getConnection();
         
-        String query = "SELECT * FROM Bestelling WHERE idBestelling = ? and idArtikel = ?";
+        String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
         preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
@@ -137,7 +137,7 @@ public class BestelArtikelDAO {
             bestelArtikelGevonden.setIdArtikel(result.getInt("idArtikel"));
             bestelArtikelGevonden.setAantal(result.getInt("Aantal"));
           
-            bestelArtikelen.add(bestelArtikel);
+            bestelArtikelen.add(bestelArtikelGevonden);
             
          }
         
