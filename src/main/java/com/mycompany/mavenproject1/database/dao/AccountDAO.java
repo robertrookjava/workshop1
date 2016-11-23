@@ -17,7 +17,7 @@ import com.mycompany.mavenproject1.database.*;
  */
 public class AccountDAO {
     
-    /*
+    
     
     private PreparedStatement preparedStatement;
     
@@ -46,6 +46,7 @@ public class AccountDAO {
         connection.close();
          
     }
+    
     
     public void delete(Account account) throws SQLException  {
         
@@ -97,6 +98,28 @@ public class AccountDAO {
         
     }
     
+     public boolean bestaatAccount (Account account) throws SQLException {
+        
+       
+        
+        connection = ConnectionManager.getConnection();
+        String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
+        
+        boolean output = false;
+            
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, account.getIdAccount());
+        ResultSet result = preparedStatement.executeQuery();
+            
+        if (result.next()){
+            output = true;
+        }
+        
+         connection.close();
+        
+        return output;
+        
+    }
     
     
      public Account readByGebruikersnaam (Account account) throws SQLException {
@@ -115,13 +138,15 @@ public class AccountDAO {
             
         ResultSet result = preparedStatement.executeQuery();
         
-            
+        Account accountGevonden = new Account();    
+        
         if (result.next()){
-            Account accountGevonden = new Account();
-            artikel.setIdArtikel(result.getInt("idArtikel"));
-            artikel.setNaam(result.getString("naam"));
-            artikel.setPrijs(result.getBigDecimal("prijs"));
-            artikel.setVoorraad(result.getInt("voorraad"));
+            
+            accountGevonden.setIdAccount(result.getInt("idAccount"));
+            accountGevonden.setGebruikersnaam(result.getString("Gebruikersnaam"));
+            accountGevonden.setWachtwoord(result.getString("Wachtwoord"));
+            accountGevonden.setDatum_Aanmaak(result.getDate("Gebruikersnaam"));
+            accountGevonden.setAccountype_id(result.getInt("accountype_id"));
             
           }
         
@@ -135,7 +160,7 @@ public class AccountDAO {
         
     }
      
-     
+     /*
      public void update(Account account) throws SQLException  {
         
         connection = ConnectionManager.getConnection();
@@ -155,7 +180,11 @@ public class AccountDAO {
 
         
         connection.close();
+
+
       
     }
-    */
+
+*/ 
+    
 }

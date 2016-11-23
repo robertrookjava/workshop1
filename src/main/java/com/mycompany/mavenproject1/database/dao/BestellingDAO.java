@@ -57,7 +57,7 @@ public class BestellingDAO {
         // Load the JDBC MySQL Driver
         connection = ConnectionManager.getConnection();
 
-        String query = "DELETE FROM Bestellling WHERE idBestelling = ?";
+        String query = "DELETE FROM Bestelling WHERE idBestelling = ?";
         
        
         preparedStatement = connection.prepareStatement(query);

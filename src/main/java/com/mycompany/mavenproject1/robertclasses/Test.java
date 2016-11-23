@@ -9,6 +9,11 @@ import com.mycompany.mavenproject1.database.dao.ArtikelDAO;
 import com.mycompany.mavenproject1.model.Artikel;
 import com.mycompany.mavenproject1.database.dao.KlantDAO;
 import com.mycompany.mavenproject1.model.Klant;
+import com.mycompany.mavenproject1.database.dao.BestellingDAO;
+import com.mycompany.mavenproject1.model.Bestelling;
+import java.util.*;
+
+
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Set;
@@ -19,20 +24,20 @@ import java.util.Set;
  */
 public class Test {
     
-     public static void testDatabaseConnection(){
-        try {
+    public static void testDatabaseConnection(){
+       try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Gelukkig");
-        }
-        catch (Exception ex){
+       }
+       catch (Exception ex){
             System.out.println("Helaas pindakaas");
             System.out.println(ex);
-        }
+       }
         
 
     }
-     
-     public static void test(){
+    
+    public static void test(){
          //testDatabaseConnection();
          
          //testArtikelCreate();
@@ -49,17 +54,316 @@ public class Test {
          //testReadAllKlant();
          //testReadByAchternaamKlant();
          
-     }
+         // Crud.maakAccount();
+         
+         //testCreateBestelling();
+         //testDeleteBestelling();
+         //testReadByIdBestelling();
+         //testReadAllBestelling();
+         //testReadByIdKlantBestelling();
+         testUpdateBestelling();
+         
+         //testCreateBestelArtikel();
+         //testDeleteBestelArtikel();
+         //testReadByIdBestellingIdArtikel();
+         //testRealAllbestelArtikel();
+         //testReadByIdBestellingBestelArtikel()
+         //testUpdateBestelArtikel(
+         
+         
+         
+         
+         
+         
+    }
      
      // test ArtikelDAO
      
-      public static void testArtikelCreate(){
+     
+    public static void testCreateBestelling(){
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdBestelling(0);
+        bestelling.setIdKlant(6);
+        bestelling.setDatum_Bestelling(new Date());
+        bestelling.setIdAccount(1);
+        
+        try {
+            bestellingDao.create(bestelling);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+        
+    }
+    
+    public static void testDeleteBestelling(){
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdBestelling(3);
+        try {
+            bestellingDao.delete(bestelling);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+    
+    public static void testReadByIdBestelling(){
+        
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdBestelling(4);
+        
+        
+        try {
+            Bestelling gevondenBestelling = bestellingDao.readByIdBestelling(bestelling);
+            System.out.println(gevondenBestelling.getIdKlant());
+            System.out.println(gevondenBestelling.getDatum_Bestelling());
+            System.out.println(gevondenBestelling.getIdAccount());
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+            
+        
+        }
+    
+     
+    }
+    
+    public static void testReadAllBestelling(){
+        BestellingDAO bestellingDao = new BestellingDAO();
+     
+        try {
+        Set<Bestelling> bestellingen = bestellingDao.readAll();
+       
+            for (Bestelling x:bestellingen){         
+                System.out.println(x.getIdBestelling());
+                System.out.println(x.getIdKlant());
+                System.out.println(x.getDatum_Bestelling());
+                System.out.println(x.getIdAccount());
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+          
+    }
+    
+    public static void testReadByIdKlantBestelling(){
+        
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdKlant(5);
+      
+        try {
+        Set<Bestelling> bestellingen = bestellingDao.readByIdKlant(bestelling);
+            for (Bestelling x:bestellingen){
+                System.out.println("In de loop");
+                System.out.println(x.getIdBestelling());
+                System.out.println(x.getIdKlant());
+                System.out.println(x.getDatum_Bestelling());
+                System.out.println(x.getIdAccount());
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+        
+    }
+    
+    public static void testUpdateBestelling(){
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        
+        bestelling.setIdBestelling(4);
+        bestelling.setIdKlant(4);
+        bestelling.setDatum_Bestelling(new Date());
+        bestelling.setIdAccount(1);
+  
+        try {
+            bestellingDao.update(bestelling);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+    
+    public static void testCreateBestelArtikel(){
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdBestelling(0);
+        bestelling.setIdKlant(6);
+        bestelling.setDatum_Bestelling(new Date());
+        bestelling.setIdAccount(1);
+        
+        try {
+            bestellingDao.create(bestelling);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+    
+    public static void testDeleteBestelArtikel(){
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdBestelling(3);
+        try {
+            bestellingDao.delete(bestelling);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+    
+    public static void testReadByIdBestellingIdArtikel(){
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdBestelling(4);
+        
+        
+        try {
+            Bestelling gevondenBestelling = bestellingDao.readByIdBestelling(bestelling);
+            System.out.println(gevondenBestelling.getIdKlant());
+            System.out.println(gevondenBestelling.getDatum_Bestelling());
+            System.out.println(gevondenBestelling.getIdAccount());
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+            
+        
+        }
+    
+        
+    }
+    
+    public static void testRealAllBestelArtikel(){
+        ArtikelDAO artikelDao = new ArtikelDAO();
+     
+        try {
+        Set<Artikel> artikelen = artikelDao.readAll();
+       
+            for (Artikel x:artikelen){         
+                System.out.println(x.getIdArtikel());
+                System.out.println(x.getNaam());
+                System.out.println(x.getPrijs());
+                System.out.println(x.getVoorraad());
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+    
+    public static void testReadByIdBestellingBestelArtikel(){
+        ArtikelDAO artikelDao = new ArtikelDAO();
+     
+        try {
+        Set<Artikel> artikelen = artikelDao.readAll();
+       
+            for (Artikel x:artikelen){         
+                System.out.println(x.getIdArtikel());
+                System.out.println(x.getNaam());
+                System.out.println(x.getPrijs());
+                System.out.println(x.getVoorraad());
+                System.out.println();
+             
+            }
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+    
+    public static void testUpdateBestelArtikel(){
+        ArtikelDAO artikelDao = new ArtikelDAO();
+        Artikel artikel = new Artikel();
+        artikel.setIdArtikel(20);
+        artikel.setNaam("nieuwe naam1");
+        artikel.setPrijs(new BigDecimal("56.78"));
+        artikel.setVoorraad(99);
+        
+        try {
+            artikelDao.update(artikel);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+    }
+        
+     
+    public static void testArtikelCreate(){
         
         ArtikelDAO artikelDao = new ArtikelDAO();
         Artikel artikel = new Artikel();
         artikel.setIdArtikel(0);
-        artikel.setNaam("naam4");
-        artikel.setPrijs(new BigDecimal("22.56"));
+        artikel.setNaam("naam6");
+        artikel.setPrijs(new BigDecimal("67.89"));
         artikel.setVoorraad(12);
         
         try {
@@ -205,7 +509,7 @@ public class Test {
         klant.setIdKlant(0);
         klant.setVoornaam("voornaam6");
         klant.setAchternaam("achternaam6");
-        klant.setTussenvoegsel("tussenvoegsel6");
+        klant.setTussenvoegsel("tussenvoegse6");
         klant.setTelefoonnummer("telefoonnummer6");
         klant.setEmailadres("emailadres6");
         
@@ -346,9 +650,16 @@ public class Test {
         }
     
      
- 
-        
     }
+    
+    
+   
+    
+    
+    
+    
+    
+    
     
     
     

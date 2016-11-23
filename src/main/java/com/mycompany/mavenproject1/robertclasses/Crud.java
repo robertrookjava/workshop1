@@ -4,22 +4,19 @@
  * and open the template in the editor.
  */
 package com.mycompany.mavenproject1.robertclasses;
-import com.mycompany.mavenproject1.database.dao.AccounttypeDAO;
-import com.mycompany.mavenproject1.model.Accounttype;
+
 import com.mycompany.mavenproject1.database.dao.AccountDAO;
+import com.mycompany.mavenproject1.database.dao.AccounttypeDAO;
 import com.mycompany.mavenproject1.model.Account;
-
-import java.sql.*;
-import java.util.*;
+import com.mycompany.mavenproject1.model.Accounttype;
+import java.sql.SQLException;
 import java.util.Date;
-
 
 /**
  *
  * @author robertrook
  */
-public class Robert {
-    
+public class Crud {
     
     // maak account om dat ik geen onderhoudsscherm accounts heb en je ander foreign key problemen krijgt
     public static void maakAccountTypeRecord(){
@@ -40,6 +37,30 @@ public class Robert {
         }
         
     }
+    
+    public static boolean bestaatAccount(int i){
+        boolean output = false;
+        AccountDAO accountDao = new AccountDAO();
+        Account account = new Account();
+        account.setIdAccount(1);
+        try {
+            output = accountDao.bestaatAccount(account);
+        }
+        catch (SQLException ex) {
+          System.out.println(ex);
+            
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        
+        
+        return output;
+            
+        
+    }
+    
+    
     
     
     public static void maakAccountRecord(){
@@ -63,15 +84,20 @@ public class Robert {
         
     }
     
+
     public static void maakAccount(){
-        maakAccountTypeRecord();
-        maakAccountRecord();
-    }
+        boolean bestaatAccount1 = bestaatAccount(1);
+         
+        if (!bestaatAccount1){
+            maakAccountTypeRecord();
+            maakAccountRecord();
+        }
+     }
  
-            
-            
-            
-    
-    
-    
 }
+        
+    
+    
+    
+    
+    

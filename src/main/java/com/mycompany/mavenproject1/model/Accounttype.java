@@ -25,7 +25,7 @@ public class Accounttype {
         return id;
     }
 
-    public void setIdAccount(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
