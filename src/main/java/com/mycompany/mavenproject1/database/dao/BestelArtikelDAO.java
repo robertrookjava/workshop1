@@ -99,7 +99,7 @@ public class BestelArtikelDAO {
         
     }
     
-    public BestelArtikel readByIdBestellingIdArtikel (BestelArtikel bestelArtikel) throws SQLException {
+    public BestelArtikel readByIdBestellingIdArtikel (BestelArtikel bestelArtikel) {
         
         
         
