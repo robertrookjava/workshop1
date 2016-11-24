@@ -19,138 +19,232 @@ public class AccountDAO {
     
     
     
-    private PreparedStatement preparedStatement;
+   
     
-    private Connection connection;
-    
-    
-    public void create(Account account) throws SQLException  {
+    public void create(Account account)   {
         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         
-        connection = ConnectionManager.getConnection();
-        String query = "INSERT INTO Account (idAccount, Gebruikersnaam, Wachtwoord, Datum_Aanmaak,accountype_id) VALUES(?, ?, ?, ?, ?)";
-         
-        preparedStatement = connection.prepareStatement(query);
-            
-        preparedStatement.setInt(1, account.getIdAccount());
-        preparedStatement.setString(2, account.getGebruikersnaam());
-        preparedStatement.setString(3, account.getWachtwoord());
+        try {
         
-        java.util.Date date = account.getDatum_Aanmaak();
+            connection = ConnectionManager.getConnection();
+            String query = "INSERT INTO Account (idAccount, Gebruikersnaam, Wachtwoord, Datum_Aanmaak,accountype_id) VALUES(?, ?, ?, ?, ?)";
+
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, account.getIdAccount());
+            preparedStatement.setString(2, account.getGebruikersnaam());
+            preparedStatement.setString(3, account.getWachtwoord());
+
+            java.util.Date date = account.getDatum_Aanmaak();
+
+            preparedStatement.setDate(4, new java.sql.Date(date.getTime()));
+
+            preparedStatement.setInt(5, account.getAccountype_id());
+            preparedStatement.executeUpdate();
+
+        }
         
-        preparedStatement.setDate(4, new java.sql.Date(date.getTime()));
-        
-        preparedStatement.setInt(5, account.getAccountype_id());
-        preparedStatement.executeUpdate();
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
      
-        connection.close();
+        
          
     }
     
     
-    public void delete(Account account) throws SQLException  {
+    public void delete(Account account)   {
         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        
+        
+        
+        try {
         // Load the JDBC MySQL Driver
-        connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection();
+
+
+
+            String query = "DELETE FROM Account WHERE idAccount = ?";
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+
+            preparedStatement.setInt(1, account.getIdAccount());
+            preparedStatement.executeUpdate();
+
+        }
         
-      
-           
-        String query = "DELETE FROM Account WHERE idAccount = ?";
-        
-       
-        preparedStatement = connection.prepareStatement(query);
-            
-            
-        preparedStatement.setInt(1, account.getIdAccount());
-        preparedStatement.executeUpdate();
-        connection.close();
-        
-    }
-    
-    public Account readByIdAccount (Account account) throws SQLException {
-        
-        Account gevondenAccount = new Account();
-        
-        connection = ConnectionManager.getConnection();
-        
-        String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
-        
-        
-            
-        preparedStatement = connection.prepareStatement(query);
-            
-        preparedStatement.setInt(1, account.getIdAccount());
-            
-        ResultSet result = preparedStatement.executeQuery();
-            
-        if (result.next()){
-            gevondenAccount.setIdAccount(result.getInt("idAccount"));
-            gevondenAccount.setGebruikersnaam(result.getString("Gebruikersnaam"));
-            gevondenAccount.setWachtwoord(result.getString("Wachtwoord"));
-            gevondenAccount.setDatum_Aanmaak(result.getDate("Datum_Aanmaak"));
-            gevondenAccount.setAccountype_id(result.getInt("accountype_id"));
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
         }
         
         
-        connection.close();
+    }
+    
+    public Account readByIdAccount (Account account)  {
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        
+        Account gevondenAccount = new Account();
+        
+        try {
+        
+            
+
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
+
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, account.getIdAccount());
+
+            
+
+            if (result.next()){
+                gevondenAccount.setIdAccount(result.getInt("idAccount"));
+                gevondenAccount.setGebruikersnaam(result.getString("Gebruikersnaam"));
+                gevondenAccount.setWachtwoord(result.getString("Wachtwoord"));
+                gevondenAccount.setDatum_Aanmaak(result.getDate("Datum_Aanmaak"));
+                gevondenAccount.setAccountype_id(result.getInt("accountype_id"));
+            }
+        
+        }
+        
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+        
+        
         
         return gevondenAccount;
         
     }
     
-     public boolean bestaatAccount (Account account) throws SQLException {
+     public boolean bestaatAccount (Account account)  {
         
-       
-        
-        connection = ConnectionManager.getConnection();
-        String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
-        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         boolean output = false;
+        
+        try {
+       
+
+            connection = ConnectionManager.getConnection();
+            String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
+
             
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, account.getIdAccount());
-        ResultSet result = preparedStatement.executeQuery();
-            
-        if (result.next()){
-            output = true;
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, account.getIdAccount());
+            result = preparedStatement.executeQuery();
+
+            if (result.next()){
+                output = true;
+            }
+        
         }
         
-         connection.close();
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+        
         
         return output;
         
     }
     
     
-     public Account readByGebruikersnaam (Account account) throws SQLException {
+     public Account readByGebruikersnaam (Account account) {
          
-         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        Account accountGevonden = new Account(); 
         
         
-        connection = ConnectionManager.getConnection();
+        try {
         
-        String query = "SELECT * FROM Account WHERE account.Gebruikersnaam = ?";
-     
-        preparedStatement = connection.prepareStatement(query);
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Account WHERE account.Gebruikersnaam = ?";
+
+            preparedStatement = connection.prepareStatement(query);
+
+
+            preparedStatement.setString(1, account.getGebruikersnaam());
+
+            result = preparedStatement.executeQuery();
+
+               
+
+            if (result.next()){
+
+                accountGevonden.setIdAccount(result.getInt("idAccount"));
+                accountGevonden.setGebruikersnaam(result.getString("Gebruikersnaam"));
+                accountGevonden.setWachtwoord(result.getString("Wachtwoord"));
+                accountGevonden.setDatum_Aanmaak(result.getDate("Gebruikersnaam"));
+                accountGevonden.setAccountype_id(result.getInt("accountype_id"));
+
+              }
         
-            
-        preparedStatement.setString(1, account.getGebruikersnaam());
-            
-        ResultSet result = preparedStatement.executeQuery();
+        }
         
-        Account accountGevonden = new Account();    
-        
-        if (result.next()){
-            
-            accountGevonden.setIdAccount(result.getInt("idAccount"));
-            accountGevonden.setGebruikersnaam(result.getString("Gebruikersnaam"));
-            accountGevonden.setWachtwoord(result.getString("Wachtwoord"));
-            accountGevonden.setDatum_Aanmaak(result.getDate("Gebruikersnaam"));
-            accountGevonden.setAccountype_id(result.getInt("accountype_id"));
-            
-          }
-        
-            connection.close();
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
       
         
         return accountGevonden;

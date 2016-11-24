@@ -19,132 +19,215 @@ import com.mycompany.mavenproject1.database.*;
  */
 public class ArtikelDAO {
 
-    private PreparedStatement preparedStatement;
-    
-    private Connection connection;
+   
     
     
-    public void create(Artikel artikel) throws SQLException  {
+    public void create(Artikel artikel)   {
         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         
-        connection = ConnectionManager.getConnection();
-        // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
-        //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
+        try {
         
-        String query = "INSERT INTO ARTIKEL"
-		+ "(IDARTIKEL, NAAM, PRIJS, VOORRAAD) VALUES"
-		+ "(?,?,?,?)";
+            connection = ConnectionManager.getConnection();
+            // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
+            //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
+
+            String query = "INSERT INTO ARTIKEL"
+                    + "(IDARTIKEL, NAAM, PRIJS, VOORRAAD) VALUES"
+                    + "(?,?,?,?)";
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, artikel.getIdArtikel());
+            preparedStatement.setString(2, artikel.getNaam());
+            preparedStatement.setBigDecimal(3, artikel.getPrijs());
+            preparedStatement.setInt(4, artikel.getVoorraad());
+            preparedStatement.executeUpdate();
         
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, artikel.getIdArtikel());
-        preparedStatement.setString(2, artikel.getNaam());
-        preparedStatement.setBigDecimal(3, artikel.getPrijs());
-        preparedStatement.setInt(4, artikel.getVoorraad());
-        preparedStatement.executeUpdate();
+        }
         
-        connection.close();
-       
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
          
     }
     
-    public void delete(Artikel artikel) throws SQLException  {
+    
+    
+    public void delete(Artikel artikel)   {
         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         // Load the JDBC MySQL Driver
-        connection = ConnectionManager.getConnection();
         
-      
-           
-        String query = "DELETE FROM Artikel WHERE idArtikel = ?";
+        try {
+            connection = ConnectionManager.getConnection();
+
+
+
+            String query = "DELETE FROM Artikel WHERE idArtikel = ?";
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+
+            preparedStatement.setInt(1, artikel.getIdArtikel());
+            preparedStatement.executeUpdate();
+        }
         
-       
-        preparedStatement = connection.prepareStatement(query);
-            
-            
-        preparedStatement.setInt(1, artikel.getIdArtikel());
-        preparedStatement.executeUpdate();
-        connection.close();
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
         
     }
     
-    public Artikel readByIdArtikel (Artikel artikel) throws SQLException {
+    public Artikel readByIdArtikel (Artikel artikel)  {
         
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         Artikel gevondenArtikel = new Artikel();
         
-        connection = ConnectionManager.getConnection();
-        
-        String query = "SELECT * FROM Artikel WHERE Artikel.idArtikel = ?";
-        
-        
-            
-        preparedStatement = connection.prepareStatement(query);
-            
-        preparedStatement.setInt(1, artikel.getIdArtikel());
-            
-        ResultSet result = preparedStatement.executeQuery();
-            
-        if (result.next()){
-            gevondenArtikel.setIdArtikel(result.getInt("idArtikel"));
-            gevondenArtikel.setNaam(result.getString("naam"));
-            gevondenArtikel.setPrijs(result.getBigDecimal("prijs"));
-            gevondenArtikel.setVoorraad(result.getInt("voorraad"));
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Artikel WHERE Artikel.idArtikel = ?";
+
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, artikel.getIdArtikel());
+
+            result = preparedStatement.executeQuery();
+
+            if (result.next()){
+                gevondenArtikel.setIdArtikel(result.getInt("idArtikel"));
+                gevondenArtikel.setNaam(result.getString("naam"));
+                gevondenArtikel.setPrijs(result.getBigDecimal("prijs"));
+                gevondenArtikel.setVoorraad(result.getInt("voorraad"));
+            }
+
         }
         
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
         
-        connection.close();
         
         return gevondenArtikel;
         
     }
     
-    public Set<Artikel> readAll() throws SQLException  {
+    public Set<Artikel> readAll()  {
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         
         Set<Artikel> artikelen = new HashSet<>();
         
-        connection = ConnectionManager.getConnection();
-       
-        String query = "SELECT * FROM Artikel";
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Artikel";
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+            result = preparedStatement.executeQuery(query);
+
+            while(result.next()){
+                Artikel artikel = new Artikel();
+                artikel.setIdArtikel(result.getInt("idArtikel"));
+                artikel.setNaam(result.getString("naam"));
+                artikel.setPrijs(result.getBigDecimal("prijs"));
+                artikel.setVoorraad(result.getInt("voorraad"));
+                artikelen.add(artikel);
+                }
+
+        }
         
-       
-        preparedStatement = connection.prepareStatement(query);
-        
-        ResultSet result = preparedStatement.executeQuery(query);
-            
-        while(result.next()){
-            Artikel artikel = new Artikel();
-            artikel.setIdArtikel(result.getInt("idArtikel"));
-            artikel.setNaam(result.getString("naam"));
-            artikel.setPrijs(result.getBigDecimal("prijs"));
-            artikel.setVoorraad(result.getInt("voorraad"));
-            artikelen.add(artikel);
-            }
-       
-            connection.close();
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
   
         return artikelen;
     }
     
-     public Set<Artikel> readByNaam(Artikel artikel) throws SQLException {
-         
+     public Set<Artikel> readByNaam(Artikel artikel)  {
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
        
         Set<Artikel> artikelen = new HashSet<>();
-        ;
-        connection = ConnectionManager.getConnection();
         
-        String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, artikel.getNaam());
-        ResultSet result = preparedStatement.executeQuery();
         
-        while(result.next()){
-            Artikel artikelGevonden = new Artikel();
-            artikelGevonden.setIdArtikel(result.getInt("idArtikel"));
-            artikelGevonden.setNaam(result.getString("naam"));
-            artikelGevonden.setPrijs(result.getBigDecimal("prijs"));
-            artikelGevonden.setVoorraad(result.getInt("voorraad"));
-            artikelen.add(artikelGevonden);
-          }
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, artikel.getNaam());
+            result = preparedStatement.executeQuery();
+
+            while(result.next()){
+                Artikel artikelGevonden = new Artikel();
+                artikelGevonden.setIdArtikel(result.getInt("idArtikel"));
+                artikelGevonden.setNaam(result.getString("naam"));
+                artikelGevonden.setPrijs(result.getBigDecimal("prijs"));
+                artikelGevonden.setVoorraad(result.getInt("voorraad"));
+                artikelen.add(artikelGevonden);
+              }
         
-            connection.close();
+        }
+         catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
       
         return artikelen;
             
@@ -154,25 +237,43 @@ public class ArtikelDAO {
     }
      
      
-     public void update(Artikel artikel) throws SQLException  {
+     public void update(Artikel artikel)   {
+         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null; 
         
-        connection = ConnectionManager.getConnection();
+        try {
         
+            connection = ConnectionManager.getConnection();
 
-        String query = "UPDATE Artikel SET Artikel.naam = ?, "
-                + " Artikel.prijs = ?, Artikel.voorraad = ? "
-                + "WHERE Artikel.idArtikel = ?";
-                       
-       
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, artikel.getNaam());
-        preparedStatement.setBigDecimal(2, artikel.getPrijs());
-        preparedStatement.setInt(3, artikel.getVoorraad());
-        preparedStatement.setInt(4, artikel.getIdArtikel());
-        preparedStatement.executeUpdate();
 
+            String query = "UPDATE Artikel SET Artikel.naam = ?, "
+                    + " Artikel.prijs = ?, Artikel.voorraad = ? "
+                    + "WHERE Artikel.idArtikel = ?";
+
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, artikel.getNaam());
+            preparedStatement.setBigDecimal(2, artikel.getPrijs());
+            preparedStatement.setInt(3, artikel.getVoorraad());
+            preparedStatement.setInt(4, artikel.getIdArtikel());
+            preparedStatement.executeUpdate();
+
+
+            }
         
-        connection.close();
+         catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
       
     }
     

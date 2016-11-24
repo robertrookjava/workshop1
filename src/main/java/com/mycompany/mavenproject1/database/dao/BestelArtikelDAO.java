@@ -20,128 +20,207 @@ import java.util.Set;
  */
 public class BestelArtikelDAO {
     
-    private PreparedStatement preparedStatement;
-    
-    private Connection connection;
     
     
-    public void create(BestelArtikel bestelArtikel) throws SQLException  {
+    
+    public void create(BestelArtikel bestelArtikel)   {
         
         
-        connection = ConnectionManager.getConnection();
-        // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
-        //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         
-        String query = "INSERT INTO BESTELARTIKEL"
-		+ "(IDBESTELLING, IDARTIKEL, AANTAL) VALUES"
-		+ "(?,?,?)";
+        try {
+            connection = ConnectionManager.getConnection();
+            // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
+            //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
+
+            String query = "INSERT INTO BESTELARTIKEL"
+                    + "(IDBESTELLING, IDARTIKEL, AANTAL) VALUES"
+                    + "(?,?,?)";
+
+
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
+            preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
+            preparedStatement.setInt(3, bestelArtikel.getAantal());
+
+            preparedStatement.executeUpdate();
         
-        
-        
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
-        preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
-        preparedStatement.setInt(3, bestelArtikel.getAantal());
-        
-        preparedStatement.executeUpdate();
-        
-        connection.close();
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
        
          
     }
     
-    public void delete(BestelArtikel bestelArtikel) throws SQLException  {
+    public void delete(BestelArtikel bestelArtikel)   {
         
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         // Load the JDBC MySQL Driver
-        connection = ConnectionManager.getConnection();
-
-        String query = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
         
-       
-        preparedStatement = connection.prepareStatement(query);
-            
-            
-        preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
-        preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
-        preparedStatement.executeUpdate();
-        connection.close();
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+
+            preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
+            preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
         
     }
     
     public BestelArtikel readByIdBestellingIdArtikel (BestelArtikel bestelArtikel) throws SQLException {
         
+        
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         BestelArtikel gevondenBestelArtikel = new BestelArtikel();
-        
-        connection = ConnectionManager.getConnection();
-        
-        String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
-        preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
-        ResultSet result = preparedStatement.executeQuery();
-            
-        if (result.next()){
-            gevondenBestelArtikel.setIdBestelling(result.getInt("idBestelling"));
-            gevondenBestelArtikel.setIdArtikel(result.getInt("idArtikel"));
-            gevondenBestelArtikel.setAantal(result.getInt("aantal"));
-           
-        }
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
+            preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
+            result = preparedStatement.executeQuery();
+
+            if (result.next()){
+                gevondenBestelArtikel.setIdBestelling(result.getInt("idBestelling"));
+                gevondenBestelArtikel.setIdArtikel(result.getInt("idArtikel"));
+                gevondenBestelArtikel.setAantal(result.getInt("aantal"));
+
+            }
      
-        connection.close();
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
         
         return gevondenBestelArtikel;
         
     }
     
-    public Set<BestelArtikel> readAll() throws SQLException  {
+    public Set<BestelArtikel> readAll()   {
+        
+        
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         
         Set<BestelArtikel> bestelArtikelen = new HashSet<>();
       
-        
-        connection = ConnectionManager.getConnection();
-       
-        String query = "SELECT * FROM BestelArtikel";
-        preparedStatement = connection.prepareStatement(query);
-        ResultSet result = preparedStatement.executeQuery(query);
-            
-        while(result.next()){
-            BestelArtikel bestelArtikel = new BestelArtikel();
-            bestelArtikel.setIdBestelling(result.getInt("idBestelling"));
-            bestelArtikel.setIdArtikel(result.getInt("idArtikel"));
-            bestelArtikel.setAantal(result.getInt("Aantal"));
-  
-            bestelArtikelen.add(bestelArtikel);
-            }
-       
-            connection.close();
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM BestelArtikel";
+            preparedStatement = connection.prepareStatement(query);
+            result = preparedStatement.executeQuery(query);
+
+            while(result.next()){
+                BestelArtikel bestelArtikel = new BestelArtikel();
+                bestelArtikel.setIdBestelling(result.getInt("idBestelling"));
+                bestelArtikel.setIdArtikel(result.getInt("idArtikel"));
+                bestelArtikel.setAantal(result.getInt("Aantal"));
+
+                bestelArtikelen.add(bestelArtikel);
+                }
+
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
   
         return bestelArtikelen;
     }
     
-     public Set<BestelArtikel> readByIdBestelling (BestelArtikel bestelArtikel) throws SQLException {
+     public Set<BestelArtikel> readByIdBestelling (BestelArtikel bestelArtikel)  {
          
        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        
         Set<BestelArtikel> bestelArtikelen = new HashSet<>();
        
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
+            result = preparedStatement.executeQuery();
+
+            while(result.next()){
+                BestelArtikel bestelArtikelGevonden = new BestelArtikel();
+                bestelArtikelGevonden.setIdBestelling(result.getInt("idBestelling"));
+                bestelArtikelGevonden.setIdArtikel(result.getInt("idArtikel"));
+                bestelArtikelGevonden.setAantal(result.getInt("Aantal"));
+
+                bestelArtikelen.add(bestelArtikelGevonden);
+
+             }
         
-        connection = ConnectionManager.getConnection();
-        
-        String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ?";
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
-        ResultSet result = preparedStatement.executeQuery();
-        
-        while(result.next()){
-            BestelArtikel bestelArtikelGevonden = new BestelArtikel();
-            bestelArtikelGevonden.setIdBestelling(result.getInt("idBestelling"));
-            bestelArtikelGevonden.setIdArtikel(result.getInt("idArtikel"));
-            bestelArtikelGevonden.setAantal(result.getInt("Aantal"));
-          
-            bestelArtikelen.add(bestelArtikelGevonden);
-            
-         }
-        
-            connection.close();
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
       
         return bestelArtikelen;
             
@@ -151,22 +230,40 @@ public class BestelArtikelDAO {
     }
      
      
-     public void update(BestelArtikel bestelArtikel) throws SQLException  {
+     public void update(BestelArtikel bestelArtikel)   {
+         
+         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
         
-        connection = ConnectionManager.getConnection();
         
-        
-        
-        String query = "UPDATE BestelArtikel SET aantal = ? "
-                + "WHERE idBestelling = ? and idArtikel = ?";
-                            
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, bestelArtikel.getAantal());
-        preparedStatement.setInt(2, bestelArtikel.getIdBestelling());
-        preparedStatement.setInt(3, bestelArtikel.getIdArtikel());
-        preparedStatement.executeUpdate();
-    
-        connection.close();
+        try {
+            connection = ConnectionManager.getConnection();
+
+
+
+            String query = "UPDATE BestelArtikel SET aantal = ? "
+                    + "WHERE idBestelling = ? and idArtikel = ?";
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bestelArtikel.getAantal());
+            preparedStatement.setInt(2, bestelArtikel.getIdBestelling());
+            preparedStatement.setInt(3, bestelArtikel.getIdArtikel());
+            preparedStatement.executeUpdate();
+
+            }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
       
     }
     

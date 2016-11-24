@@ -9,6 +9,7 @@ import com.mycompany.mavenproject1.database.ConnectionManager;
 import com.mycompany.mavenproject1.model.Accounttype;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -18,29 +19,47 @@ import java.sql.SQLException;
 public class AccounttypeDAO {
     
     
-    private PreparedStatement preparedStatement;
-    private Connection connection;
+   
     
-    public void create(Accounttype accounttype) throws SQLException  {
+    public void create(Accounttype accounttype)   {
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        
+        try {
+            connection = ConnectionManager.getConnection();
+            // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
+            //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
+
+            String query = "INSERT INTO ACCOUNTYPE"
+                    + "(ID, TYPE) VALUES"
+                    + "(?,?)";
+
+
+
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, accounttype.getId());
+            preparedStatement.setString(2, accounttype.getType());
+
+            preparedStatement.executeUpdate();
+            
+
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
         
         
-        connection = ConnectionManager.getConnection();
-        // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
-        //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
         
-        String query = "INSERT INTO ACCOUNTYPE"
-		+ "(ID, TYPE) VALUES"
-		+ "(?,?)";
-        
-        
-        
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, accounttype.getId());
-        preparedStatement.setString(2, accounttype.getType());
- 
-        preparedStatement.executeUpdate();
-        
-        connection.close();
        
          
     }
