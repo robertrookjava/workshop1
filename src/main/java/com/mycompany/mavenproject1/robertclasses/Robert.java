@@ -22,27 +22,21 @@ public class Robert {
     
     
     // maak account om dat ik geen onderhoudsscherm accounts heb en je ander foreign key problemen krijgt
-    public static void maakAccountTypeRecord(){
+    private static void maakAccountTypeRecord(){
         
         AccounttypeDAO accounttypeDao = new AccounttypeDAO();
         Accounttype accounttype = new Accounttype();
         accounttype.setId(1);
         accounttype.setTYpe("admin");
-        try {
-            accounttypeDao.create(accounttype);
-        }
-        catch (SQLException ex) {
-          System.out.println(ex);
-            
-        }
-        catch (Exception ex){
-            System.out.println(ex);
-        }
+        
+        accounttypeDao.create(accounttype);
+        
+        
         
     }
     
     
-    public static void maakAccountRecord(){
+    private static void maakAccountRecord(){
         AccountDAO accountDao = new AccountDAO();
         Account account = new Account();
         account.setIdAccount(1);
@@ -50,16 +44,10 @@ public class Robert {
         account.setWachtwoord("Geheim");
         account.setDatum_Aanmaak (new Date());
         account.setAccountype_id(1);
-        try {
-            accountDao.create(account);
-        }
-        catch (SQLException ex) {
-          System.out.println(ex);
-            
-        }
-        catch (Exception ex){
-            System.out.println(ex);
-        }
+        
+        accountDao.create(account);
+        
+        
         
     }
     
