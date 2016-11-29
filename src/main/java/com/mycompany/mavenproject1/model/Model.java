@@ -218,6 +218,8 @@ public class Model {
     
     // bestelling acties
     
+    
+    
     public void createBestelling(int idKlant, int idAccount){
         BestellingDAO bestellingDao = new BestellingDAO();
         Bestelling bestelling = new Bestelling();

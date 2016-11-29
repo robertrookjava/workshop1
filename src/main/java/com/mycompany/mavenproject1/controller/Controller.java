@@ -23,10 +23,20 @@ public class Controller {
         this.view = view;
     }
     
+    private void verwerkInput (String userInput){
+        System.out.println("Even verwerken " + userInput);
+    }
+    
     public void run(){
+        String userInput="";
         view.startScreen();
-        
-      
+        view.menuScreen();
+        while (!(userInput.equalsIgnoreCase("exit"))){
+            view.askUserInput("Welke menu optie?");
+            userInput = view.getUserInput();
+            verwerkInput(userInput);
+        }
+        System.out.println("Tot ziens");
     }
     
     
