@@ -77,87 +77,88 @@ public class Controller {
     }
     
     private void verwerkInput_menu(){
-        
+        view.menuScreen();
     }
     
     private void verwerkInput_ma(){
-        
+        model.maakAccount();
+        System.out.println("Account aangemaakt");
     }
     
     private void verwerkInput_a1(){
-        
+        System.out.println("verwerk a1");
     }
     
     private void verwerkInput_a2(){
-        
+        System.out.println("verwerk a2");
     }
     
     private void verwerkInput_a3(){
-        
+        System.out.println("verwerk a3");
     }
     
     private void verwerkInput_a4(){
-        
+        System.out.println("verwerk a4");
     }
     
     private void verwerkInput_a5(){
-        
+        System.out.println("verwerk a5");
     }
     
     private void verwerkInput_a6(){
-        
+        System.out.println("verwerk a6");
     }
     
     private void verwerkInput_k1(){
-        
+        System.out.println("verwerk k1");    
     }
     
     private void verwerkInput_k2(){
-        
+        System.out.println("verwerk k2");
     }
     
     private void verwerkInput_k3(){
-        
+        System.out.println("verwerk k3");
     }
     
     private void verwerkInput_k4(){
-        
+        System.out.println("verwerk k4")
     }
     
     private void verwerkInput_k5(){
-        
+        System.out.println("verwerk k5")
     }
     
     private void verwerkInput_k6(){
-        
+        System.out.println("verwerk k6");
     }
     
     private void verwerkInput_b1(){
-        
+        System.out.println("verwerk b1");
     }
     
     private void verwerkInput_b2(){
-        
+        System.out.println("verwerk b2");
     }
     
     private void verwerkInput_b3(){
-        
+        System.out.println("verwerk b3");
     }
     
     private void verwerkInput_b4(){
-        
+        System.out.println("verwerk b4");
     }
     
     private void verwerkInput_b5(){
-        
+        System.out.println("verwerk b65");
     }
     
     private void verwerkInput_b6(){
-        
+        System.out.println("verwerk b6");
     }
     
     private void verwerkInput_b7(){
-        
+        System.out.println("verwerk b7");
     }
    
     
