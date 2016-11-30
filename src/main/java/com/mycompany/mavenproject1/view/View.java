@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1.view;
 import java.util.Scanner;
+import java.math.BigDecimal;
 
 /**
  *
@@ -21,6 +22,20 @@ public class View {
     private final Scanner input;
     
     private String userInput;
+    
+    // user input artikel
+    private int userInputIdArtikel;
+    private String userInputNaam;
+    private BigDecimal userinputPrijs;
+    private int userInputVoorraad;
+    
+    // user input klant;
+    private int userInputidKlant;
+    private String userInputIdVoornaam;
+    
+    
+    
+    
 
     
     public View (){
@@ -56,6 +71,10 @@ public class View {
         System.out.println ();
         System.out.println ();
         
+    }
+    
+    public void endScreen(){
+        System.out.println("Tot ziens");
     }
     
     
@@ -134,6 +153,10 @@ public class View {
         menuArtikel();
         menuKlant();
         menuBestelling();
+    }
+    
+    public void menuZoekArtikelOpId(){
+        
     }
     
     

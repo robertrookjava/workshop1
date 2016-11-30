@@ -122,11 +122,11 @@ public class Controller {
     }
     
     private void verwerkInput_k4(){
-        System.out.println("verwerk k4")
+        System.out.println("verwerk k4");
     }
     
     private void verwerkInput_k5(){
-        System.out.println("verwerk k5")
+        System.out.println("verwerk k5");
     }
     
     private void verwerkInput_k6(){
@@ -173,7 +173,7 @@ public class Controller {
             userInput = view.getUserInput();
             verwerkInput(userInput);
         }
-        System.out.println("Tot ziens");
+        view.endScreen();
     }
     
     
