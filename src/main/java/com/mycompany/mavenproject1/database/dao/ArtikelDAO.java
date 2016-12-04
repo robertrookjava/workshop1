@@ -146,6 +146,94 @@ public class ArtikelDAO {
         
     }
     
+    
+    public boolean existsByIdArtikel (Artikel artikel)  {
+        
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        Artikel gevondenArtikel = new Artikel();
+        boolean exists = false;
+        
+        
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Artikel WHERE Artikel.idArtikel = ?";
+
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, artikel.getIdArtikel());
+
+            result = preparedStatement.executeQuery();
+            
+            exists=result.next();
+
+        }
+        
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+        
+        
+        return exists;
+        
+    }
+    
+    public boolean existsByNaam(Artikel artikel)  {
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+       
+        Set<Artikel> artikelen = new HashSet<>();
+        boolean exists = false;
+        
+        
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, artikel.getNaam());
+            result = preparedStatement.executeQuery();
+
+            exists=result.next();
+        
+        }
+         catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+      
+        return exists;
+            
+            
+        
+        
+    }
+    
+    
+    
+    
     public Set<Artikel> readAll()  {
         
         Connection connection = null;

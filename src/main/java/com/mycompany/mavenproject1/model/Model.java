@@ -104,7 +104,19 @@ public class Model {
         Artikel gevondenArtikel = artikelDao.readByIdArtikel(artikel);
   
         return gevondenArtikel;
+    }
+    
+    public boolean existsByIdArtikel (int idArtikel){
+        ArtikelDAO artikelDao = new ArtikelDAO();
+        Artikel artikel = new Artikel();
+        artikel.setIdArtikel(idArtikel);
+        boolean exists = artikelDao.existsByIdArtikel(artikel);
+  
+        return exists;
    }
+    
+   
+    
    
     public void updateArtikel(int idArtikel, String naam, BigDecimal prijs, int voorraad){
         ArtikelDAO artikelDao = new ArtikelDAO();
@@ -132,6 +144,16 @@ public class Model {
         Set<Artikel> artikelen = artikelDao.readByNaam(artikel);
         
         return artikelen;
+       
+    }
+    
+    public boolean existsByNameArtikel (String naam) {
+        ArtikelDAO artikelDao = new ArtikelDAO();
+        Artikel artikel = new Artikel();
+        artikel.setNaam(naam);
+        boolean exists = artikelDao.existsByNaam(artikel);
+        
+        return exists;
        
    }
    
@@ -179,6 +201,19 @@ public class Model {
    
     }
     
+    
+    public boolean existsByIDKlant(int idKlant){
+        
+        KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+        klant.setIdKlant(idKlant);
+    
+        boolean exists = klantDao.existsByIdKLant(klant);
+
+        return exists;
+   
+    }
+    
     public void updateKlant(int idKlant, String voornaam, String achternaam, String tussenvoegsel, String telefoonnummer, String emailadres) {
         
         KlantDAO klantDao = new KlantDAO();
@@ -211,6 +246,17 @@ public class Model {
         Set<Klant> klanten = klantDao.readByAchternaamKlant(klant);
         
         return klanten;
+     
+    }
+    
+    public boolean existsByAchternaamKlant(String achternaam){
+        
+        KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+        klant.setAchternaam(achternaam);
+        boolean exists = klantDao.existsByAchternaamKlant(klant);
+        
+        return exists;
      
     }
     

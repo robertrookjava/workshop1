@@ -144,6 +144,48 @@ public class KlantDAO {
         
     }
     
+    public Boolean existsByIdKLant (Klant klant)  {
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        boolean exists = false;
+        
+        Klant gevondenKlant = new Klant();
+        
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, klant.getIdKlant());
+            result = preparedStatement.executeQuery();
+
+            exists=result.next();
+     
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+        
+        return exists;
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     public Set<Klant> readAll()   {
         
         
@@ -236,6 +278,47 @@ public class KlantDAO {
         
         
     }
+     
+    public boolean existsByAchternaamKlant(Klant klant)  {
+         
+         
+         
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        boolean exists = false;
+       
+        Set<Klant> klanten = new HashSet<>();
+       
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, klant.getAchternaam());
+            result = preparedStatement.executeQuery();
+
+            exists=result.next();
+        
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+      
+        return exists;
+            
+            
+        
+        
+    } 
      
      
      public void update(Klant klant)   {
