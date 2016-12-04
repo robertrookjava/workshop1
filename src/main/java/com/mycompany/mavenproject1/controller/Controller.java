@@ -6,6 +6,8 @@
 package com.mycompany.mavenproject1.controller;
 import com.mycompany.mavenproject1.model.*;
 import com.mycompany.mavenproject1.view.*;
+import java.util.Set;
+import java.math.BigDecimal;
 
 /**
  *
@@ -85,52 +87,142 @@ public class Controller {
         System.out.println("Account aangemaakt");
     }
     
+    private void printArtikel (Artikel artikel){
+        view.printOutput("--------------------------");
+        view.printOutput("idArtikel = " +artikel.getIdArtikel());
+        view.printOutput("Naam = " +artikel.getNaam());
+        view.printOutput("Prijs = " +artikel.getPrijs());
+        view.printOutput("Voorraad = " +artikel.getVoorraad());
+        view.printOutput("--------------------------");
+    }
+    
+    private void printArtikelen (Set<Artikel> artikelen){
+        for (Artikel artikel : artikelen){
+            printArtikel (artikel);
+        }
+    }
+    
+    private void printKlant (Klant klant){
+        view.printOutput("--------------------------");
+        view.printOutput("idKlant = " +klant.getIdKlant());
+        view.printOutput("Voornaam = " +klant.getVoornaam());
+        view.printOutput("Achternaam = " +klant.getAchternaam());
+        view.printOutput("Tussenvoegsel = " +klant.getTussenvoegsel());
+        view.printOutput("Telefoonnummer = " +klant.getTelefoonnummer());
+        view.printOutput("Emailadres = " +klant.getEmailadres());
+        view.printOutput("--------------------------");
+    }
+    
+    private void printKlanten (Set<Klant> klanten){
+        for (Klant klant : klanten){
+            printKlant (klant);
+        }
+    }
+    
+    
+    
     private void verwerkInput_a1(){
         System.out.println("verwerk a1");
+        view.menuA1();
+        int idArtikel = view.getUserInputIdArtikel();
+        Artikel artikel = model.readByIdArtikel(idArtikel);
+        printArtikel(artikel);
     }
     
     private void verwerkInput_a2(){
         System.out.println("verwerk a2");
+        view.menuA2();
+        String naam = view.getUserInputNaam();
+        Set<Artikel> artikelen = model.readByNameArtikel(naam);
+        printArtikelen (artikelen);
     }
     
     private void verwerkInput_a3(){
         System.out.println("verwerk a3");
+        Set<Artikel> artikelen = model.readAllArtikel();
+        printArtikelen (artikelen);
     }
     
     private void verwerkInput_a4(){
         System.out.println("verwerk a4");
+        view.menuA4();
+        String naam = view.getUserInputNaam();
+        BigDecimal prijs = view.getUserInputPrijs();
+        int voorraad = view.getUserInputVoorraad();
+        model.createArtikel(naam, prijs, voorraad);
+        
     }
     
     private void verwerkInput_a5(){
         System.out.println("verwerk a5");
+        view.menuA5();
+        int idArtikel = view.getUserInputIdArtikel();
+        String naam = view.getUserInputNaam();
+        BigDecimal prijs = view.getUserInputPrijs();
+        int voorraad = view.getUserInputVoorraad();
+        model.updateArtikel(idArtikel, naam, prijs, voorraad);
     }
     
     private void verwerkInput_a6(){
         System.out.println("verwerk a6");
+        view.menuA6();
+        int idArtikel = view.getUserInputIdArtikel();
+        model.deleteArtikel(idArtikel);
     }
     
     private void verwerkInput_k1(){
-        System.out.println("verwerk k1");    
+        System.out.println("verwerk k1");
+        view.menuK1();
+        int idKlant = view.getUserInputIdklant();
+        Klant klant = model.readByIDKlant(idKlant);
+        printKlant (klant);
     }
     
     private void verwerkInput_k2(){
         System.out.println("verwerk k2");
+        view.menuK2();
+        String achternaam = view.getUserInputAchternaam();
+        Set<Klant> klanten = model.readByAchternaamKlant(achternaam);
+        printKlanten (klanten);
+        
     }
     
     private void verwerkInput_k3(){
         System.out.println("verwerk k3");
+        Set<Klant> klanten = model.readAllKlant();
+        printKlanten (klanten);
     }
     
     private void verwerkInput_k4(){
         System.out.println("verwerk k4");
+        view.menuK4();
+        String voornaam = view.getUserInputVoornaam();
+        String achternaam = view.getUserInputAchternaam();
+        String tussenvoegsel = view.getUserInputTussenvoegsel();
+        String telefoonnummer = view.getUserInputTelefoonnummer();
+        String emailadres = view.getUserInputEmailadres();
+        model.createKlant(voornaam, achternaam, tussenvoegsel, telefoonnummer, emailadres);
+        
+        
     }
     
     private void verwerkInput_k5(){
         System.out.println("verwerk k5");
+        view.menuK5();
+        int idKlant = view.getUserInputIdklant();
+        String voornaam = view.getUserInputVoornaam();
+        String achternaam = view.getUserInputAchternaam();
+        String tussenvoegsel = view.getUserInputTussenvoegsel();
+        String telefoonnummer = view.getUserInputTelefoonnummer();
+        String emailadres = view.getUserInputEmailadres();
+        model.updateKlant(idKlant, voornaam, achternaam, tussenvoegsel, telefoonnummer, emailadres);
     }
     
     private void verwerkInput_k6(){
         System.out.println("verwerk k6");
+        view.menuK6();
+        int idKlant = view.getUserInputIdklant();
+        model.deleteKlant(idKlant);
     }
     
     private void verwerkInput_b1(){

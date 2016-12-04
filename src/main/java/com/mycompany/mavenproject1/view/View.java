@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.view;
 import java.util.Scanner;
 import java.math.BigDecimal;
+import com.mycompany.mavenproject1.robertclasses.*;
 
 /**
  *
@@ -22,21 +23,135 @@ public class View {
     private final Scanner input;
     
     private String userInput;
+    private int userInputInt;
+    private BigDecimal userInputBigDecimal;
+    
     
     // user input artikel
     private int userInputIdArtikel;
     private String userInputNaam;
-    private BigDecimal userinputPrijs;
+    private BigDecimal userInputPrijs;
     private int userInputVoorraad;
     
     // user input klant;
-    private int userInputidKlant;
-    private String userInputIdVoornaam;
+    private int userInputIdKlant;
+    private String userInputVoornaam;
+    private String userInputAchternaam;
+    private String userInputTussenvoegsel;
+    private String userInputTelefoonnummer;
+    private String userInputEmailadres;
     
     
     
     
+    
+    // user input artikel ophalen
+    
+    public int getUserInputIdArtikel (){
+        return userInputIdArtikel;
+    }
+    
+    public String getUserInputNaam (){
+        return userInputNaam;
+    }
+    
+    public BigDecimal getUserInputPrijs (){
+        return userInputPrijs;
+    }
+    
+    public int getUserInputVoorraad(){
+        return userInputVoorraad;
+    }
+    
+    
+    // user input klant ophalen
+    public int getUserInputIdklant (){
+        return userInputIdKlant;
+    }
+    
+    public String getUserInputVoornaam (){
+        return userInputVoornaam;
+    }
+    
+    
+    public String getUserInputAchternaam (){
+        return userInputAchternaam;
+    }
+    
+    public String getUserInputTussenvoegsel (){
+        return userInputTussenvoegsel;
+    }
 
+    public String getUserInputTelefoonnummer (){
+        return userInputTelefoonnummer;
+    }
+    
+    
+    public String getUserInputEmailadres (){
+        return userInputEmailadres;
+    }
+    
+    
+    // ask user input artikel
+    
+    public void askUserInputIdArtikel (String question){
+        askUserInputInt(question);
+        userInputIdArtikel=userInputInt;
+        
+    }
+    
+    public void askUserInputNaam (String question) {
+        askUserInput(question);
+        userInputNaam=userInput;
+        
+    }
+    
+    public void askUserInputPrijs (String question){
+        askUserInputBigDecimal(question);
+        userInputPrijs=userInputBigDecimal;
+        
+    }
+    
+    public void askUserInputVoorraad (String question){
+        askUserInputInt(question);
+        userInputVoorraad=userInputInt;
+    }
+    
+    
+    // ask user input klant
+    
+    public void askUserInputIdKlant (String question){
+        askUserInputInt(question);
+        userInputIdKlant=userInputInt;
+    }
+  
+    public void askUserInputVoornaam (String question){
+        askUserInput(question);
+        userInputVoornaam=userInput;
+    }
+    
+    public void askUserInputAchternaam (String question){
+        askUserInput(question);
+        userInputAchternaam=userInput;
+    }
+    
+    public void askUserInputTussenvoegsel (String question){
+        askUserInput(question);
+        userInputTussenvoegsel=userInput;
+    }
+    
+    public void askUserInputTelefoonnummer (String question){
+        askUserInput(question);
+        userInputTelefoonnummer=userInput;
+    }
+    
+    public void askUserInputEmailadres (String question){
+        askUserInput(question);
+        userInputEmailadres=userInput;
+    }
+            
+    
+    
     
     public View (){
         input = new Scanner (System.in);
@@ -46,17 +161,56 @@ public class View {
         return userInput;
     }
     
+    public int getUserInputInt () {
+        return userInputInt;
+    }
+    
+    public BigDecimal getUserInputBigDecimal () {
+        return userInputBigDecimal;
+    }
+    
+    
+    
     
     
     
     public void askUserInput (){
-     userInput = input.next();
+        userInput = input.nextLine();
     }
     
     public void askUserInput (String question){
         printOutput(question);
         userInput = input.next();
     }
+    
+    public void askUserInputInt (String question){
+        boolean inputOK = false;
+        while (!inputOK){
+            printOutput(question);
+            userInput = input.next();
+            inputOK = CheckFormat.isInteger(userInput);
+            if (!inputOK) {
+                printOutput("Voer a.u.b. een geheel getaal in!");
+            }
+        }
+        userInputInt=Integer.parseInt(userInput);
+        
+    }
+    
+    public void askUserInputBigDecimal (String question){
+        boolean inputOK = false;
+        while (!inputOK){
+            printOutput(question);
+            userInput = input.next();
+            inputOK = CheckFormat.isBigDecimal(userInput);
+            if (!inputOK) {
+                printOutput("Voer a.u.b. een numerieke waarde in");
+            }
+        }
+        userInputBigDecimal = new BigDecimal (userInput);
+    }
+    
+    
     
     public void printOutput (String output){
         System.out.println(output);
@@ -155,9 +309,75 @@ public class View {
         menuBestelling();
     }
     
-    public void menuZoekArtikelOpId(){
+    public void menuA1(){ // Artikel opzoeken op id 
+        askUserInputIdArtikel("Voer a.u.b. een idArtikel in");
+    }
+    
+    public void menuA2(){ //Artikel opzoeken op naam
+        askUserInputNaam("Voer a.u.b. de naam van een artikel in");
+    }
+    
+    public void menuA3(){//Alle artikelen weergeven
+        // niet geimplementeerd
+    }
+    
+    public void menuA4(){//Artikel toevoegen
+        askUserInputNaam("Voer a.u.b. artikel naam in");
+        askUserInputPrijs("Voer a.u.b. de prijs in");
+        askUserInputVoorraad("Voer a.u.b. de voorraad in");
+    }
+    
+    public void menuA5(){//Artikel wijzigen
+        askUserInputIdArtikel("Voer a.u.b. een idArtikel in");
+        askUserInputNaam("Voer a.u.b. artikel naam in");
+        askUserInputPrijs("Voer a.u.b. de prijs in");
+        askUserInputVoorraad("Voer a.u.b. de voorraad in");
+    }
+    
+    public void menuA6(){ // Artikel verwijderen
+        askUserInputIdArtikel("Voer a.u.b. een idArtikel in");
+    }
+    
+    public void menuK1(){ //Klant opzoeken op id
+        askUserInputIdKlant("Voer a.u.b.een idKlant in");
+    }
+    
+    public void menuK2(){//Klant opzoeken op naam
+        askUserInputAchternaam("Voer a.u.b. de achternaam van een klant in");
+    }
+    
+    public void menuK3(){//Alle klanten weergeven
+    // niet geimplementeerd    
+    }
+    
+    public void menuK4(){//Klant toevoegen
+        askUserInputVoornaam("Voer a.u.b. de voornaam in");
+        askUserInputAchternaam("Voer a.u.b. de achternaam in");
+        askUserInputTussenvoegsel("Voer a.u.b. het tussenvoegsel in");
+        askUserInputTelefoonnummer("Voer a.u.b. het telefoonnummer in");
+        askUserInputEmailadres("Voer a.u.b. het emailadres in");
+    }
+    
+    public void menuK5(){//Klant wijzigen
+        askUserInputIdKlant("Voer a.u.b.een idKlant in");
+        askUserInputVoornaam("Voer a.u.b. de voornaam in");
+        askUserInputAchternaam("Voer a.u.b. de achternaam in");
+        askUserInputTussenvoegsel("Voer a.u.b. het tussenvoegsel in");
+        askUserInputTelefoonnummer("Voer a.u.b. het telefoonnummer in");
+        askUserInputEmailadres("Voer a.u.b. het emailadres in");
+    }
+    
+    public void menuK6(){//Klant verwijderen
+        askUserInputIdKlant("Voer a.u.b.een idKlant in");
         
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     
