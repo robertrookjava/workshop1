@@ -20,22 +20,25 @@ import com.mycompany.mavenproject1.robertclasses.Test;
  */
 public class Application {
     
-    private static boolean test = true;
+    private static boolean test = false;
     
     public static void main(String[] args) {
-       /* if (test) {
-            Test.test();
-        }
-        else {
-            run();
-        }
-       */
-       
-      Model model = new Model();
-      View view = new View ();
-      Controller controller = new Controller (model, view);
-      controller.run();
       
+      if (test){
+          Test.test();
+      }
+      else {
+          run();
+      } 
+      
+      
+    }
+    
+    public static void run(){
+        Model model = new Model();
+        View view = new View ();
+        Controller controller = new Controller (model, view);
+        controller.run();   
     }
     
     

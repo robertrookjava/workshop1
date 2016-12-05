@@ -125,6 +125,13 @@ public class Controller {
         System.out.println("verwerk a1");
         view.menuA1();
         int idArtikel = view.getUserInputIdArtikel();
+        boolean exists = model.existsByIdArtikel(idArtikel);
+        while (!exists){
+            view.printOutput("Dit idArtikel bestaat niet");
+            view.menuA1();
+            idArtikel = view.getUserInputIdArtikel();
+            exists = model.existsByIdArtikel(idArtikel);
+        }
         Artikel artikel = model.readByIdArtikel(idArtikel);
         printArtikel(artikel);
     }
@@ -133,6 +140,13 @@ public class Controller {
         System.out.println("verwerk a2");
         view.menuA2();
         String naam = view.getUserInputNaam();
+        boolean exists = model.existsByNameArtikel(naam);
+        while (!exists){
+            view.printOutput("Deze naam van het artikel bestaat niet");
+            view.menuA2();
+            naam = view.getUserInputNaam();
+            exists = model.existsByNameArtikel(naam);
+        }
         Set<Artikel> artikelen = model.readByNameArtikel(naam);
         printArtikelen (artikelen);
     }
@@ -157,23 +171,46 @@ public class Controller {
         System.out.println("verwerk a5");
         view.menuA5();
         int idArtikel = view.getUserInputIdArtikel();
+        boolean exists = model.existsByIdArtikel(idArtikel);
         String naam = view.getUserInputNaam();
         BigDecimal prijs = view.getUserInputPrijs();
         int voorraad = view.getUserInputVoorraad();
         model.updateArtikel(idArtikel, naam, prijs, voorraad);
+        if (exists) {
+            view.printOutput("Artikel is gewijzigd.");
+        }
+        else {
+           view.printOutput("idArtikel bestaat niet.");
+        }
     }
     
     private void verwerkInput_a6(){
         System.out.println("verwerk a6");
         view.menuA6();
         int idArtikel = view.getUserInputIdArtikel();
+        boolean exists = model.existsByIdArtikel(idArtikel);
+        while (!exists){
+            view.printOutput("Dit idArtikel bestaat niet");
+            view.menuA6();
+            idArtikel = view.getUserInputIdArtikel();
+            exists = model.existsByIdArtikel(idArtikel);
+        }
         model.deleteArtikel(idArtikel);
+        view.printOutput("Artikel is verwijderd.");
+        
     }
     
     private void verwerkInput_k1(){
         System.out.println("verwerk k1");
         view.menuK1();
         int idKlant = view.getUserInputIdklant();
+        boolean exists = model.existsByIDKlant(idKlant);
+        while (!exists){
+            view.printOutput("Dit idKlant bestaat niet");
+            view.menuK1();
+            idKlant = view.getUserInputIdklant();
+            exists = model.existsByIDKlant(idKlant);
+        }
         Klant klant = model.readByIDKlant(idKlant);
         printKlant (klant);
     }
@@ -182,6 +219,13 @@ public class Controller {
         System.out.println("verwerk k2");
         view.menuK2();
         String achternaam = view.getUserInputAchternaam();
+        boolean exists = model.existsByAchternaamKlant(achternaam);
+        while (!exists){
+            view.printOutput("Deze achternaam bestaat niet");
+            view.menuK2();
+            achternaam = view.getUserInputAchternaam();
+            exists = model.existsByAchternaamKlant(achternaam);
+        }
         Set<Klant> klanten = model.readByAchternaamKlant(achternaam);
         printKlanten (klanten);
         
@@ -210,19 +254,34 @@ public class Controller {
         System.out.println("verwerk k5");
         view.menuK5();
         int idKlant = view.getUserInputIdklant();
+        boolean exists = model.existsByIDKlant(idKlant);
         String voornaam = view.getUserInputVoornaam();
         String achternaam = view.getUserInputAchternaam();
         String tussenvoegsel = view.getUserInputTussenvoegsel();
         String telefoonnummer = view.getUserInputTelefoonnummer();
         String emailadres = view.getUserInputEmailadres();
         model.updateKlant(idKlant, voornaam, achternaam, tussenvoegsel, telefoonnummer, emailadres);
+        if (exists) {
+            view.printOutput("Klant is gewijzigd.");
+        }
+        else {
+           view.printOutput("idKlant bestaat niet.");
+        }
     }
     
     private void verwerkInput_k6(){
         System.out.println("verwerk k6");
         view.menuK6();
         int idKlant = view.getUserInputIdklant();
+        boolean exists = model.existsByIDKlant(idKlant);
+        while (!exists){
+            view.printOutput("Deze idKlant bestaat niet");
+            view.menuK6();
+            idKlant = view.getUserInputIdklant();
+            exists = model.existsByIDKlant(idKlant);
+        }
         model.deleteKlant(idKlant);
+        view.printOutput("Klant is verwijderd");
     }
     
     private void verwerkInput_b1(){
