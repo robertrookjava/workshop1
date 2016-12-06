@@ -7,6 +7,7 @@ package com.mycompany.mavenproject1.database.dao;
 
 import com.mycompany.mavenproject1.database.ConnectionManager;
 import com.mycompany.mavenproject1.model.Bestelling;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,12 +23,13 @@ import java.util.*;
 public class BestellingDAO {
     
     
-    public void create(Bestelling bestelling)   {
+    public int create(Bestelling bestelling)   { // geeft de idBestelling (auto increment) terug
         
         
         Connection connection = null;
         PreparedStatement preparedStatement  = null;  
         ResultSet result = null;
+        int idBestelling = 0;
         
         
         try {
@@ -41,7 +43,7 @@ public class BestellingDAO {
 
 
 
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, bestelling.getIdBestelling());
             preparedStatement.setInt(2, bestelling.getIdKlant());
             java.util.Date date = bestelling.getDatum_Bestelling();   
@@ -49,6 +51,12 @@ public class BestellingDAO {
             preparedStatement.setInt (4, bestelling.getIdAccount());
 
             preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if(rs.next()) {
+                idBestelling =rs.getInt(1); 
+            
+            }
+            
 
         }
         catch (SQLException ex){
@@ -63,8 +71,13 @@ public class BestellingDAO {
             try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
         }
        
-         
+        return idBestelling;
     }
+    
+  
+         
+    
+    
     
     public void delete(Bestelling bestelling)   {
         

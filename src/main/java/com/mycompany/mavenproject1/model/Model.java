@@ -282,7 +282,7 @@ public class Model {
     
     
     
-    public void createBestelling(int idKlant, int idAccount){
+    public int createBestelling(int idKlant, int idAccount){
         BestellingDAO bestellingDao = new BestellingDAO();
         Bestelling bestelling = new Bestelling();
         bestelling.setIdBestelling(0);
@@ -290,9 +290,9 @@ public class Model {
         bestelling.setDatum_Bestelling(new Date());
         bestelling.setIdAccount(idAccount);
         
-     
-        bestellingDao.create(bestelling);
- 
+        int idBestelling = bestellingDao.create(bestelling);
+      
+        return idBestelling;
     }
     
     public void deleteBestelling(int idBestelling){
@@ -314,6 +314,20 @@ public class Model {
         return gevondenBestelling;
      
     }
+    
+    
+    public boolean existsByIdBestelling(int idBestelling){
+        
+        BestellingDAO bestellingDao = new BestellingDAO();
+        Bestelling bestelling = new Bestelling();
+        bestelling.setIdBestelling(idBestelling);
+        boolean exists = bestellingDao.existsByIdBestelling(bestelling);
+
+        return exists;
+     
+    }
+    
+    
     
     public Set<Bestelling> readAllBestelling(){
         BestellingDAO bestellingDao = new BestellingDAO();

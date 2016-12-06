@@ -289,14 +289,16 @@ public class View {
       System.out.println("");
       System.out.println("");
       System.out.println("");
-      System.out.println("Bestelling toevoegen - b1");
-      System.out.println("Bestelling wijzigen - b2");
-      System.out.println("Bestelling verwijderen - b3");
-      System.out.println("Bestelling opzoeken - b4");
-      System.out.println("Alle bestellingen weergeven - b5");
-      System.out.println("Alle bestellingen van een klant opzoeken - b6");
-      System.out.println("Alle artikelen (via bestel artikel) van een idBestelling opzoeken (b7");
-      System.out.println("");
+      System.out.println("Maak bestellig aan - b1");
+      System.out.println("Voeg artikelen toe aan bestelling (bestelartikel) - b2");
+      System.out.println("Verwijder artikelen van een bestelling (bestelartikel) - b3");
+      System.out.println("Laat alle bestelling zien van een klant - b4");
+      
+      //System.out.println("Alle bestellingen weergeven - b5");
+      //System.out.println("Alle bestellingen van een klant opzoeken - b6");
+      //System.out.println("Alle artikelen (via bestel artikel) van een idBestelling opzoeken (b7");
+      //System.out.println("");
+      
       System.out.println("--------------------------------------------\");");
         
     }
@@ -371,6 +373,27 @@ public class View {
         askUserInputIdKlant("Voer a.u.b.een idKlant in");
         
     }
+    
+    public void menuB1(){// maak bestelling aan
+        askUserInputIdKlant("Voer a.u.b.een idKlant in");
+    }
+    
+    public void menuB2(){// laat alle bestellingen zien
+        // niet geimplementeerd
+    }
+    
+    public void menuB2(){// voeg artikelen toe aan bestelling (bestelartikel)
+        
+    }
+    
+    public void menuB3(){// verwijder artikelen van een bestelling 
+        
+    }
+    
+    public void menuB4(){// laat alle bestellingen van een klant zien
+        
+    }
+    
     
     
     
