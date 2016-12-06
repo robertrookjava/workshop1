@@ -6,6 +6,7 @@
 package com.mycompany.mavenproject1.database.dao;
 
 import com.mycompany.mavenproject1.database.ConnectionManager;
+import com.mycompany.mavenproject1.model.Bestelling;
 import com.mycompany.mavenproject1.model.Klant;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -179,6 +180,96 @@ public class KlantDAO {
         return exists;
         
     }
+    
+   
+    public Set<Bestelling> readByIdKlant(Klant klant)  {
+         
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null; 
+       
+        Set<Bestelling> bestellingen = new HashSet<>();
+       
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, klant.getIdKlant());
+            result = preparedStatement.executeQuery();
+
+            while(result.next()){
+                Bestelling bestellingGevonden = new Bestelling();
+                bestellingGevonden.setIdBestelling(result.getInt("idBestelling"));
+                bestellingGevonden.setIdKlant(result.getInt("idKlant"));
+                bestellingGevonden.setDatum_Bestelling(result.getDate("Datum_Bestelling"));
+                bestellingGevonden.setIdAccount(result.getInt("idAccount"));
+
+                bestellingen.add(bestellingGevonden);
+
+
+            }
+        
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+      
+        return bestellingen;
+            
+            
+        
+        
+    }
+    
+    public boolean existsBestellingByIdKlant(Klant klant)  {
+         
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        boolean exists = false;
+       
+        Set<Bestelling> bestellingen = new HashSet<>();
+       
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, klant.getIdKlant());
+            result = preparedStatement.executeQuery();
+            exists = result.next();
+
+            
+        
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+      
+        return exists;
+            
+
+    }
+    
     
     
     

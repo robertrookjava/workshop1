@@ -230,6 +230,49 @@ public class BestellingDAO {
         
         
     }
+    
+    public boolean existsByIdKlant(Bestelling bestelling)  {
+         
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        boolean exists = false;
+       
+        Set<Bestelling> bestellingen = new HashSet<>();
+       
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bestelling.getIdKlant());
+            result = preparedStatement.executeQuery();
+            exists = result.next();
+
+            
+        
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+      
+        return exists;
+            
+            
+        
+        
+    }
+     
+     
      
      
      public void update(Bestelling bestelling)   {

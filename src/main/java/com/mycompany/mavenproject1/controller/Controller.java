@@ -195,6 +195,15 @@ public class Controller {
             idArtikel = view.getUserInputIdArtikel();
             exists = model.existsByIdArtikel(idArtikel);
         }
+        idArtikel = view.getUserInputIdArtikel();
+        exists = model.existsBestelArtikelByIdArtikel(idArtikel);
+        while (exists){
+            view.printOutput("Dit artikel wordt in bestellingen gebruikt");
+            view.menuA6();
+            idArtikel = view.getUserInputIdArtikel();
+            exists = model.existsBestelArtikelByIdArtikel(idArtikel);
+        }
+        
         model.deleteArtikel(idArtikel);
         view.printOutput("Artikel is verwijderd.");
         

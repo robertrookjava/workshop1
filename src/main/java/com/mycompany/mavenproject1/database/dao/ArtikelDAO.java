@@ -191,6 +191,54 @@ public class ArtikelDAO {
         
     }
     
+ 
+     public boolean existsBestelArtikelByIdArtikel (Artikel artikel)  {
+        
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        Artikel gevondenArtikel = new Artikel();
+        boolean exists = false;
+        
+        
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM BestelArtikel WHERE bestelartikel.idArtikel = ?";
+
+
+
+            preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, artikel.getIdArtikel());
+
+            result = preparedStatement.executeQuery();
+            
+            exists=result.next();
+
+        }
+        
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+        
+        
+        return exists;
+        
+    }
+    
+    
+    
+    
     public boolean existsByNaam(Artikel artikel)  {
         
         Connection connection = null;

@@ -214,6 +214,22 @@ public class Model {
    
     }
     
+    public boolean existsBestellingByIdKlant (int idKlant){
+        KlantDAO klantDao = new KlantDAO();
+        Klant klant = new Klant();
+        klant.setIdKlant(idKlant);
+        boolean exists = klantDao.existsBestellingByIdKlant(klant);
+        return exists;
+    }
+    
+    public boolean existsBestelArtikelByIdArtikel (int idArtikel){
+        ArtikelDAO artikelDao = new ArtikelDAO();
+        Artikel artikel = new Artikel();
+        artikel.setIdArtikel(idArtikel);
+        boolean exists = artikelDao.existsBestelArtikelByIdArtikel(artikel);
+        return exists;
+    }
+    
     public void updateKlant(int idKlant, String voornaam, String achternaam, String tussenvoegsel, String telefoonnummer, String emailadres) {
         
         KlantDAO klantDao = new KlantDAO();
