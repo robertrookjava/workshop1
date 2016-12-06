@@ -289,6 +289,17 @@ public class Controller {
             idKlant = view.getUserInputIdklant();
             exists = model.existsByIDKlant(idKlant);
         }
+        
+        // nieuw ->
+        idKlant = view.getUserInputIdklant();
+        exists = model.existsBestellingByIdKlant(idKlant);
+        while (exists){
+            view.printOutput("De klant met dit idKlant heeft nog bestellingen");
+            view.menuK6();
+            idKlant = view.getUserInputIdklant();
+            exists = model.existsBestellingByIdKlant(idKlant);
+        }
+        // nieuw <-
         model.deleteKlant(idKlant);
         view.printOutput("Klant is verwijderd");
     }
