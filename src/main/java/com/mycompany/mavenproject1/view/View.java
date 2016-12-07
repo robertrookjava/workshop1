@@ -29,6 +29,7 @@ public class View {
     
     // user input artikel
     private int userInputIdArtikel;
+    private int userInputAantal;
     private String userInputNaam;
     private BigDecimal userInputPrijs;
     private int userInputVoorraad;
@@ -41,6 +42,9 @@ public class View {
     private String userInputTelefoonnummer;
     private String userInputEmailadres;
     
+    // user input bestelling
+    private int userInputIdBestelling;
+    
     
     
     
@@ -49,6 +53,10 @@ public class View {
     
     public int getUserInputIdArtikel (){
         return userInputIdArtikel;
+    }
+    
+    public int getUserInputAantal (){
+        return userInputAantal;
     }
     
     public String getUserInputNaam (){
@@ -91,6 +99,11 @@ public class View {
         return userInputEmailadres;
     }
     
+    // user input bestelling ophalen
+    public int getUserInputIdBestelling(){
+        return userInputIdBestelling;
+    }
+    
     
     // ask user input artikel
     
@@ -98,6 +111,11 @@ public class View {
         askUserInputInt(question);
         userInputIdArtikel=userInputInt;
         
+    }
+    
+    public void askUserInputAantal (String question){
+        askUserInputInt(question);
+        userInputAantal=userInputInt;
     }
     
     public void askUserInputNaam (String question) {
@@ -148,6 +166,12 @@ public class View {
     public void askUserInputEmailadres (String question){
         askUserInput(question);
         userInputEmailadres=userInput;
+    }
+    
+    // askUserInputBestellig
+    public void askUserInputIdBestelling (String question){
+        askUserInputInt(question);
+        userInputIdBestelling=userInputInt;
     }
             
     
@@ -378,20 +402,18 @@ public class View {
         askUserInputIdKlant("Voer a.u.b.een idKlant in");
     }
     
-    public void menuB2(){// laat alle bestellingen zien
-        // niet geimplementeerd
-    }
+   
     
     public void menuB2(){// voeg artikelen toe aan bestelling (bestelartikel)
-        
+        askUserInputIdBestelling("Aan welke idBestelling wilt u een artikel toevoegen?");
     }
     
     public void menuB3(){// verwijder artikelen van een bestelling 
-        
+        askUserInputIdBestelling("Van welke idBestelling wilt u een artikel verwijderen?");
     }
     
     public void menuB4(){// laat alle bestellingen van een klant zien
-        
+        askUserInputIdKlant("Voer a.u.b.een idKlant in");
     }
     
     

@@ -153,6 +153,44 @@ public class BestellingDAO {
         
     }
     
+    // nieuw ->
+     public boolean existsByIdBestelling (Bestelling bestelling)  {
+        
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        Bestelling gevondenBestelling = new Bestelling();
+        boolean exists = false;
+        
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM Bestelling WHERE idBestelling = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bestelling.getIdBestelling());
+            result = preparedStatement.executeQuery();
+            
+            exists=result.next();
+     
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+        
+        return exists;
+        
+    }
+    // nieuw <-
+    
     public Set<Bestelling> readAll()   {
         
         

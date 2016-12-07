@@ -140,6 +140,42 @@ public class BestelArtikelDAO {
         
     }
     
+    public boolean existsByIdBestellingIdArtikel (BestelArtikel bestelArtikel) {
+        
+        boolean exists = false;
+        
+        Connection connection = null;
+        PreparedStatement preparedStatement  = null;  
+        ResultSet result = null;
+        BestelArtikel gevondenBestelArtikel = new BestelArtikel();
+        try {
+            connection = ConnectionManager.getConnection();
+
+            String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
+            preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
+            result = preparedStatement.executeQuery();
+
+            exists=result.next();
+     
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+        finally {
+            try { if (result != null)   result.close(); } catch (Exception ex) {ex.printStackTrace();}
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception ex) {ex.printStackTrace();};
+            try { if (connection != null) connection.close(); } catch (Exception ex) {ex.printStackTrace();}
+        }
+        
+        return exists;
+        
+    }
+    
     public Set<BestelArtikel> readAll()   {
         
         

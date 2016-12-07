@@ -317,7 +317,7 @@ public class Controller {
         
     }
     
-    private void verwerkInput_b2(){
+   /* private void verwerkInput_b2(){
         System.out.println("verwerk b2");
         view.menuB2();
         int idBestelling = view.getUserInputIdBestelling();
@@ -331,15 +331,20 @@ public class Controller {
         }
         
        // voer nu alle artikelen in met het aantal in een loop tot er een stop teken gegeven wordt
+        view.printOutput("Voer nu alle idArtikel in. Om te stoppen geef idArtike 0");
         
         view.menuA1();
         int idArtikel = view.getUserInputIdArtikel();
-        exists = model.existsByIdArtikel(idArtikel);
-        while (!exists){
-            view.printOutput("Dit idArtikel bestaat niet");
-            view.menuA1();
-            idArtikel = view.getUserInputIdArtikel();
+        while (idArtikel != 0){
             exists = model.existsByIdArtikel(idArtikel);
+            while (!exists){
+                view.printOutput("Dit idArtikel bestaat niet");
+                view.menuA1();
+                idArtikel = view.getUserInputIdArtikel();
+                exists = model.existsByIdArtikel(idArtikel);
+            }
+            
+            
         }
         
         // nu aantal vragen
@@ -347,14 +352,107 @@ public class Controller {
         
     }
     
+    */
+    
+    private void verwerkInput_b2(){
+        boolean existsIdArtikel;
+        boolean existsIdBestelling;
+        boolean genoegVoorraad;
+        System.out.println("verwerk b2");
+        view.menuB2();
+        view.menuA1();
+        view.askUserInputAantal("Welk aantal wilt u bestellen?");
+        int idBestelling = view.getUserInputIdBestelling();
+        int idArtikel = view.getUserInputIdArtikel();
+        int aantal = view.getUserInputAantal();
+        // check uitvoeren of idBestelling en idArtikel ook bestaat en of er genoeg voorraad is van het artikel
+        existsIdArtikel = model.existsByIdArtikel(idArtikel);
+        existsIdBestelling = model.existsByIdBestelling(idBestelling);
+        while (!( existsIdArtikel && existsIdBestelling&& (aantal>0))){
+            view.printOutput("Het idArtikel of idBestelling bestaat niet of het bestelde aantal klopt niet ");
+            view.menuB2();
+            view.menuA1();
+            view.askUserInputAantal("Welk aantal wilt u bestellen?");
+            idBestelling = view.getUserInputIdBestelling();
+            idArtikel = view.getUserInputIdArtikel();
+            aantal = view.getUserInputAantal();
+        }
+        // check of er genoeg vooraad is van het artikel
+        Artikel artikel = model.readByIdArtikel(idArtikel);
+        int voorraad = artikel.getVoorraad();
+        if (voorraad >= aantal){
+            // verwerken in bestelartikel d.w.z. een bestelartikel record aanmaken
+            model.createBestelArtikel(idBestelling, idArtikel, aantal);
+            
+            // pas de voorraad van het artikel aan
+            model.updateVoorraadArtikel(idArtikel, voorraad-aantal);
+            
+        }
+        else {
+            view.printOutput("Er is niet genoeg voorraad van dit artikel voor het bestelde aantal");
+        }
+        
+    }
     private void verwerkInput_b3(){
         System.out.println("verwerk b3");
         view.menuB3();
+        view.menuA1();
+        int idBestelling = view.getUserInputIdBestelling();
+        int idArtikel = view.getUserInputIdArtikel();
+        boolean exists = model.existsByIdBestellingIdArtikel(idBestelling, idArtikel);
+        BestelArtikel bestelArtikel = model.readByIdBestellingIdArtikel(idBestelling, idArtikel);
+        int aantal = bestelArtikel.getAantal();
+        if (exists){
+            model.deleteBestelArtikel(idBestelling, idArtikel);
+            
+            model.verhoogVoorraadArtikel(idArtikel, aantal);
+        }
+        else {
+            view.printOutput("De gevraagde combinatie van bestelling en artikel bestaat niet.");
+        }
+        
     }
     
     private void verwerkInput_b4(){
         System.out.println("verwerk b4");
         view.menuB4();
+        int idKlant = view.getUserInputIdklant();
+        boolean exists = model.existsByIDKlant(idKlant);
+        while (!exists){
+            view.printOutput("Dit idKlant bestaat niet");
+            view.menuK1();
+            idKlant = view.getUserInputIdklant();
+            exists = model.existsByIDKlant(idKlant);
+        }
+        // kijken of de klant bestellingen heeft
+        exists = model.existsBestellingByIdKlant(idKlant);
+        if (!exists){
+            view.printOutput("Deze klant heeft geen bestellingen");
+            return;
+        }
+        
+        
+        // nu alle bestelling van deze klant laten zien
+        
+        Set <Bestelling> bestellingen = model.readByIdKlantBestelling(idKlant);
+        // nu voor elke bestelling alle bijbehorende bestelartikel record weergeven
+        
+        for (Bestelling bestelling: bestellingen){
+            view.printOutput("idKlant ="+ bestelling.getIdKlant() );
+            view.printOutput("idbestelling ="+ bestelling.getIdBestelling() );
+            
+            Set <BestelArtikel> bestelArtikelen = model.readByIdBestellingBestelArtikel(bestelling.getIdBestelling());
+            // druk nu alle informatie af van de bijbehorende records van bestelartikel 
+            for (BestelArtikel x: bestelArtikelen){
+                view.printOutput("");
+                view.printOutput("-------------------------------");
+                view.printOutput("idBestelling = "+x.getIdBestelling());
+                view.printOutput("idArtikel = "+x.getIdArtikel());
+                view.printOutput("aantal = " + x.getAantal());
+                view.printOutput("-------------------------------");
+            }
+        }
+        
     }
     
     

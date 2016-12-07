@@ -127,7 +127,36 @@ public class Model {
         artikel.setVoorraad(voorraad);
 
         artikelDao.update(artikel);
+    }
+    
+   public void updateVoorraadArtikel (int idArtikel, int voorraad){
+       boolean exists = existsByIdArtikel(idArtikel);
+       if (exists) {
+           Artikel artikel = readByIdArtikel (idArtikel);
+           updateArtikel(idArtikel,artikel.getNaam(),artikel.getPrijs(),voorraad );
+          }
+       
    }
+   
+   public void verlaagVoorraadArtikel (int idArtikel, int aantal){
+       boolean exists = existsByIdArtikel(idArtikel);
+       if (exists) {
+           Artikel artikel = readByIdArtikel (idArtikel);
+           updateArtikel(idArtikel,artikel.getNaam(),artikel.getPrijs(),artikel.getVoorraad()-aantal );
+          }
+       
+   }
+   
+   public void verhoogVoorraadArtikel (int idArtikel, int aantal){
+       boolean exists = existsByIdArtikel(idArtikel);
+       if (exists) {
+           Artikel artikel = readByIdArtikel (idArtikel);
+           updateArtikel(idArtikel,artikel.getNaam(),artikel.getPrijs(),artikel.getVoorraad()+aantal );
+          }
+       
+   }
+   
+   
     
     public Set<Artikel> readAllArtikel () {
         ArtikelDAO artikelDao = new ArtikelDAO();
@@ -391,6 +420,18 @@ public class Model {
         BestelArtikel gevondenBestelArtikel=bestelArtikelDoa.readByIdBestellingIdArtikel(bestelArtikel);
         
         return gevondenBestelArtikel;
+  
+    }
+    
+    public boolean existsByIdBestellingIdArtikel(int idBestelling, int idArtikel){
+        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikel bestelArtikel = new BestelArtikel();
+        bestelArtikel.setIdBestelling(idBestelling);
+        bestelArtikel.setIdArtikel(idArtikel);
+        
+        boolean exists=bestelArtikelDoa.existsByIdBestellingIdArtikel(bestelArtikel);
+        
+        return exists;
   
     }
     
