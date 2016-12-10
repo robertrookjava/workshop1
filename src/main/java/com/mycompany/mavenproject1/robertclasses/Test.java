@@ -13,6 +13,7 @@ import com.mycompany.mavenproject1.database.dao.BestellingDAO;
 import com.mycompany.mavenproject1.model.Bestelling;
 import com.mycompany.mavenproject1.database.dao.BestelArtikelDAO;
 import com.mycompany.mavenproject1.model.BestelArtikel;
+import com.mycompany.mavenproject1.robertclasses.*;
 
 import java.util.*;
 
@@ -72,6 +73,17 @@ public class Test {
          //testReadAllBestelArtikel();
          //testReadByIdBestellingBestelArtikel();
          //testUpdateBestelArtikel();
+         
+         
+         if (CheckFormat.isEmailAdres("hallo@hfhf.nl")){
+             System.out.println("ja");
+         }
+         else {
+              System.out.println("nee");
+         }
+         
+         
+        
          
          
          

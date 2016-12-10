@@ -12,6 +12,9 @@ import com.mycompany.mavenproject1.controller.Controller;
 import java.math.BigDecimal;
 import java.sql.*;
 import com.mycompany.mavenproject1.robertclasses.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 /**
@@ -35,6 +38,14 @@ public class Application {
     }
     
     public static void run(){
+        
+        Logger logger = LoggerFactory.getLogger(Application.class);
+        logger.trace("Hello World");
+        logger.debug("Hello World");
+        logger.info("Hello World");
+        logger.warn("Hello World");
+        logger.error("Hello World");
+        
         Model model = new Model();
         View view = new View ();
         Controller controller = new Controller (model, view);

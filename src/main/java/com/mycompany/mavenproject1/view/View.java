@@ -164,7 +164,7 @@ public class View {
     }
     
     public void askUserInputEmailadres (String question){
-        askUserInput(question);
+        askUserInputEmail(question);
         userInputEmailadres=userInput;
     }
     
@@ -232,6 +232,18 @@ public class View {
             }
         }
         userInputBigDecimal = new BigDecimal (userInput);
+    }
+    
+    public void askUserInputEmail (String question){
+        boolean inputOK = false;
+        while (!inputOK){
+            printOutput(question);
+            userInput = input.next();
+            inputOK = CheckFormat.isEmailAdres(userInput);
+            if (!inputOK) {
+                printOutput("Voer a.u.b. een email adres in");
+            }
+        }
     }
     
     

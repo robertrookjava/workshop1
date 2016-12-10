@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1.robertclasses;
 import java.math.BigDecimal;
+import org.apache.commons.validator.routines.*;
 
 /**
  *
@@ -13,7 +14,11 @@ import java.math.BigDecimal;
 public class CheckFormat {
     
     
-    // format chacks methods
+    
+    
+    // format checks methods
+    
+    
     
     public static boolean isInteger (String str) {
         try {
@@ -24,6 +29,7 @@ public class CheckFormat {
             return false;
         }
     }
+   
     
     public static boolean isBigDecimal (String str) {
         try {
@@ -33,6 +39,27 @@ public class CheckFormat {
         catch(Exception e) {
             return false;
         }
+    }
+     
+    /*public static Integer isInteger (String str) {
+        IntegerValidator validator = IntegerValidator.getInstance();
+        Integer fooInteger = validator.validate(str );
+        return fooInteger;
+    }
+*/
+    
+    /*public static boolean isBigDecimal (String str) {
+     
+        BigDecimalValidator validator = BigDecimalValidator.getInstance();
+        BigDecimal fooBigDecimal = validator.validate(str );
+        return (fooBigDecimal != null);
+       
+    }
+*/
+    
+    public static boolean isEmailAdres (String str){
+        EmailValidator validator = EmailValidator.getInstance();
+        return (validator.isValid(str));
     }
     
     
