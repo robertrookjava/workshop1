@@ -20,6 +20,17 @@ public class Model {
     
     // aanmaken van 1 accound  zonder onderhoudsscherm 
     
+    private String database;
+    
+    public void setDatabase (String database){
+        this.database = database;
+        
+    }
+    
+    public String getDatabase (){
+        return this.database;
+    }
+    
     private void maakAccountTypeRecord(){
         
         AccounttypeDAO accounttypeDao = new AccounttypeDAO();

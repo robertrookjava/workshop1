@@ -27,6 +27,8 @@ public class View {
     private BigDecimal userInputBigDecimal;
     
     
+    private String userInputDatabase;
+    
     // user input artikel
     private int userInputIdArtikel;
     private int userInputAantal;
@@ -42,11 +44,17 @@ public class View {
     private String userInputTelefoonnummer;
     private String userInputEmailadres;
     
+    
     // user input bestelling
     private int userInputIdBestelling;
     
     
-    
+    // user input database
+  
+    public String getUserInputDatabase (){
+        return userInputDatabase;
+    }
+   
     
     
     // user input artikel ophalen
@@ -102,6 +110,27 @@ public class View {
     // user input bestelling ophalen
     public int getUserInputIdBestelling(){
         return userInputIdBestelling;
+    }
+    
+    // ask user input database
+    /* public void askUserInputDatabase (String question) {
+        askUserInput(question);
+        userInputDatabase=userInput;
+        
+    }
+     */
+     public void askUserInputDatabase (String question){
+        boolean inputOK = false;
+        while (!inputOK){
+            printOutput(question);
+            userInput = input.next();
+            inputOK = CheckFormat.isDatabase(userInput);
+            if (!inputOK) {
+                printOutput("Voer a.u.b. een database in");
+            }
+        }
+        userInputDatabase=userInput;
+        
     }
     
     
@@ -282,6 +311,7 @@ public class View {
         System.out.println("");
         System.out.println("Toon menu - menu");
         System.out.println("Maak account - ma");
+        System.out.println("Kies database - db");
         System.out.println("Afsluiten - exit");
         System.out.println("");
     }
@@ -345,6 +375,10 @@ public class View {
         menuArtikel();
         menuKlant();
         menuBestelling();
+    }
+    
+    public void menuDB(){
+        askUserInputDatabase ("Welke database wilt u: Mysql of Oracle");
     }
     
     public void menuA1(){ // Artikel opzoeken op id 

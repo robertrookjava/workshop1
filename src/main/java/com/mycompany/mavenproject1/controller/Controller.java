@@ -31,6 +31,8 @@ public class Controller {
                      break;
             case "ma":  verwerkInput_ma();
                      break;
+            case "db":  verwerkInput_db();
+                     break;         
             case "a1":  verwerkInput_a1();
                      break;
             case "a2":  verwerkInput_a2();
@@ -116,6 +118,13 @@ public class Controller {
     }
     
     
+    
+    private void verwerkInput_db(){
+        System.out.println("verwerk db");
+        view.menuDB();
+        String database = view.getUserInputDatabase();
+        model.setDatabase(database);
+    }
     
     private void verwerkInput_a1(){
         System.out.println("verwerk a1");

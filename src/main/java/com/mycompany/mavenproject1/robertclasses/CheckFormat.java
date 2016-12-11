@@ -62,5 +62,12 @@ public class CheckFormat {
         return (validator.isValid(str));
     }
     
+    public static boolean isDatabase (String str){
+        boolean isMySql = (str.equalsIgnoreCase("MySql"));
+        boolean isOracle = (str.equalsIgnoreCase("Oracle")); 
+        boolean isValid = (isMySql || isOracle);
+        return isValid;
+    }
+    
     
 }
