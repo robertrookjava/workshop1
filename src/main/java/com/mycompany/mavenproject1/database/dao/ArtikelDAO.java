@@ -17,7 +17,9 @@ import com.mycompany.mavenproject1.database.*;
  *
  * @author robertrook
  */
-public class ArtikelDAO {
+public abstract class ArtikelDAO {
+    
+    protected abstract String getDatabase();
 
    
     
@@ -30,7 +32,7 @@ public class ArtikelDAO {
         
         try {
         
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
@@ -71,7 +73,7 @@ public class ArtikelDAO {
         // Load the JDBC MySQL Driver
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
 
 
@@ -108,7 +110,7 @@ public class ArtikelDAO {
         Artikel gevondenArtikel = new Artikel();
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Artikel WHERE Artikel.idArtikel = ?";
 
@@ -158,7 +160,7 @@ public class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Artikel WHERE Artikel.idArtikel = ?";
 
@@ -203,7 +205,7 @@ public class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM BestelArtikel WHERE bestelartikel.idArtikel = ?";
 
@@ -250,7 +252,7 @@ public class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -291,7 +293,7 @@ public class ArtikelDAO {
         Set<Artikel> artikelen = new HashSet<>();
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Artikel";
 
@@ -336,7 +338,7 @@ public class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -381,7 +383,7 @@ public class ArtikelDAO {
         
         try {
         
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
 
             String query = "UPDATE Artikel SET Artikel.naam = ?, "

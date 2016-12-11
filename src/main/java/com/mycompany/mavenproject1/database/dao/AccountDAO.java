@@ -15,10 +15,10 @@ import com.mycompany.mavenproject1.database.*;
  *
  * @author robertrook
  */
-public class AccountDAO {
+public abstract class AccountDAO {
     
     
-    
+    protected abstract String getDatabase();
    
     
     public void create(Account account)   {
@@ -28,8 +28,8 @@ public class AccountDAO {
         ResultSet result = null;
         
         try {
-        
-            connection = ConnectionManager.getConnection();
+            
+            connection = ConnectionManager.getConnection(getDatabase());
             String query = "INSERT INTO Account (idAccount, Gebruikersnaam, Wachtwoord, Datum_Aanmaak,accountype_id) VALUES(?, ?, ?, ?, ?)";
 
             preparedStatement = connection.prepareStatement(query);
@@ -74,7 +74,7 @@ public class AccountDAO {
         
         try {
         // Load the JDBC MySQL Driver
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
 
 
@@ -116,7 +116,7 @@ public class AccountDAO {
         
             
 
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
 
@@ -166,7 +166,7 @@ public class AccountDAO {
         try {
        
 
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
             String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
 
             
@@ -209,7 +209,7 @@ public class AccountDAO {
         
         try {
         
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Account WHERE account.Gebruikersnaam = ?";
 

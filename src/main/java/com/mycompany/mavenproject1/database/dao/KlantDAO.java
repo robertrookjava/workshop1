@@ -20,7 +20,10 @@ import java.util.Set;
  *
  * @author robertrook
  */
-public class KlantDAO {
+public abstract class KlantDAO {
+    protected abstract String getDatabase();
+    
+    
     
     
     public void create(Klant klant)  {
@@ -32,7 +35,7 @@ public class KlantDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
             String query = "INSERT INTO KLANT"
 		+ "(IDKLANT, VOORNAAM, ACHTERNAAM, TUSSENVOEGSEL, TELEFOONNUMMER, EMAILADRES) VALUES"
 		+ "(?,?,?,?,?,?)";
@@ -78,7 +81,7 @@ public class KlantDAO {
         
         try {
             // Load the JDBC MySQL Driver
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "DELETE FROM Klant WHERE idKlant = ?";
 
@@ -112,7 +115,7 @@ public class KlantDAO {
         Klant gevondenKlant = new Klant();
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -155,7 +158,7 @@ public class KlantDAO {
         Klant gevondenKlant = new Klant();
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -192,7 +195,7 @@ public class KlantDAO {
         Set<Bestelling> bestellingen = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -242,7 +245,7 @@ public class KlantDAO {
         Set<Bestelling> bestellingen = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -287,7 +290,7 @@ public class KlantDAO {
         Set<Klant> klanten = new HashSet<>();
       
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Klant";
             preparedStatement = connection.prepareStatement(query);
@@ -331,7 +334,7 @@ public class KlantDAO {
         Set<Klant> klanten = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -382,7 +385,7 @@ public class KlantDAO {
         Set<Klant> klanten = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -420,7 +423,7 @@ public class KlantDAO {
         ResultSet result = null; 
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
 
 

@@ -9,6 +9,6 @@ package com.mycompany.mavenproject1.database.dao;
  *
  * @author robertrook
  */
-public class AdresDAO {
+public abstract class AdresDAO {
     
 }

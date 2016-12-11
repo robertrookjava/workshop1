@@ -11,6 +11,7 @@ import com.mycompany.mavenproject1.database.dao.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
+import com.mycompany.mavenproject1.database.daofactory.*;
 
 /**
  *
@@ -33,10 +34,11 @@ public class Model {
     
     private void maakAccountTypeRecord(){
         
-        AccounttypeDAO accounttypeDao = new AccounttypeDAO();
+        AccounttypeDaoFactory accounttypeDaoFactory = new AccounttypeDaoFactory ();
+        AccounttypeDAO accounttypeDao = accounttypeDaoFactory.getAccounttypeDao(getDatabase());
         Accounttype accounttype = new Accounttype();
         accounttype.setId(1);
-        accounttype.setTYpe("admin");
+        accounttype.setTYpe("amin");
         
         accounttypeDao.create(accounttype);
         
@@ -45,7 +47,9 @@ public class Model {
     
     private boolean bestaatAccount(int i){
         boolean output = false;
-        AccountDAO accountDao = new AccountDAO();
+        
+        AccountDaoFactory accountDaoFactory = new AccountDaoFactory ();
+        AccountDAO accountDao = accountDaoFactory.getAccountDao(getDatabase());
         Account account = new Account();
         account.setIdAccount(1);
       
@@ -62,7 +66,8 @@ public class Model {
     
     
     private void maakAccountRecord(){
-        AccountDAO accountDao = new AccountDAO();
+        AccountDaoFactory accountDaoFactory = new AccountDaoFactory ();
+        AccountDAO accountDao = accountDaoFactory.getAccountDao(getDatabase());
         Account account = new Account();
         account.setIdAccount(1);
         account.setGebruikersnaam("Robert Rook");
@@ -88,8 +93,10 @@ public class Model {
     
     // artikel acties
     
-    public void createArtikel(String naam, BigDecimal prijs, int voorraad){        
-        ArtikelDAO artikelDao = new ArtikelDAO();
+    public void createArtikel(String naam, BigDecimal prijs, int voorraad){ 
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
+       
         Artikel artikel = new Artikel();
         artikel.setIdArtikel(0);
         artikel.setNaam(naam);
@@ -100,7 +107,8 @@ public class Model {
     }
     
     public void deleteArtikel (int idArtikel){
-        ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Artikel artikel = new Artikel();
         artikel.setIdArtikel(idArtikel);
       
@@ -109,7 +117,8 @@ public class Model {
     }
     
     public Artikel readByIdArtikel (int idArtikel){
-        ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Artikel artikel = new Artikel();
         artikel.setIdArtikel(idArtikel);
         Artikel gevondenArtikel = artikelDao.readByIdArtikel(artikel);
@@ -118,7 +127,8 @@ public class Model {
     }
     
     public boolean existsByIdArtikel (int idArtikel){
-        ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Artikel artikel = new Artikel();
         artikel.setIdArtikel(idArtikel);
         boolean exists = artikelDao.existsByIdArtikel(artikel);
@@ -130,7 +140,8 @@ public class Model {
     
    
     public void updateArtikel(int idArtikel, String naam, BigDecimal prijs, int voorraad){
-        ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Artikel artikel = new Artikel();
         artikel.setIdArtikel(idArtikel);
         artikel.setNaam(naam);
@@ -170,7 +181,8 @@ public class Model {
    
     
     public Set<Artikel> readAllArtikel () {
-        ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Set<Artikel> artikelen = artikelDao.readAll();
        
         return artikelen;
@@ -178,7 +190,8 @@ public class Model {
 
    
     public Set <Artikel> readByNameArtikel (String naam) {
-       ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Artikel artikel = new Artikel();
         artikel.setNaam(naam);
         Set<Artikel> artikelen = artikelDao.readByNaam(artikel);
@@ -188,7 +201,8 @@ public class Model {
     }
     
     public boolean existsByNameArtikel (String naam) {
-        ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Artikel artikel = new Artikel();
         artikel.setNaam(naam);
         boolean exists = artikelDao.existsByNaam(artikel);
@@ -203,8 +217,8 @@ public class Model {
     // klant acties 
     
      public void createKlant(String voornaam, String achternaam, String tussenvoegsel, String telefoonnummer, String emailadres){
-        
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
        
         
@@ -220,7 +234,8 @@ public class Model {
     }
       
     public void deleteKlant(int idKlant) {
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
         klant.setIdKlant(idKlant);
        
@@ -231,7 +246,8 @@ public class Model {
     
     public Klant readByIDKlant(int idKlant){
         
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
         klant.setIdKlant(idKlant);
     
@@ -244,7 +260,8 @@ public class Model {
     
     public boolean existsByIDKlant(int idKlant){
         
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
         klant.setIdKlant(idKlant);
     
@@ -255,7 +272,8 @@ public class Model {
     }
     
     public boolean existsBestellingByIdKlant (int idKlant){
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
         klant.setIdKlant(idKlant);
         boolean exists = klantDao.existsBestellingByIdKlant(klant);
@@ -263,7 +281,9 @@ public class Model {
     }
     
     public boolean existsBestelArtikelByIdArtikel (int idArtikel){
-        ArtikelDAO artikelDao = new ArtikelDAO();
+        ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
+        ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
+        Set<Artikel> artikelen = artikelDao.readAll();
         Artikel artikel = new Artikel();
         artikel.setIdArtikel(idArtikel);
         boolean exists = artikelDao.existsBestelArtikelByIdArtikel(artikel);
@@ -272,7 +292,8 @@ public class Model {
     
     public void updateKlant(int idKlant, String voornaam, String achternaam, String tussenvoegsel, String telefoonnummer, String emailadres) {
         
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
         klant.setIdKlant(idKlant);
         klant.setVoornaam(voornaam);
@@ -286,7 +307,8 @@ public class Model {
     }
     
     public Set<Klant> readAllKlant() {
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Set<Klant> klanten = klantDao.readAll();
        
         return klanten;
@@ -296,7 +318,8 @@ public class Model {
     
     public Set<Klant> readByAchternaamKlant(String achternaam){
         
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
         klant.setAchternaam(achternaam);
         Set<Klant> klanten = klantDao.readByAchternaamKlant(klant);
@@ -307,7 +330,8 @@ public class Model {
     
     public boolean existsByAchternaamKlant(String achternaam){
         
-        KlantDAO klantDao = new KlantDAO();
+        KlantDaoFactory  klantDaoFactory = new KlantDaoFactory ();
+        KlantDAO klantDao = klantDaoFactory.getKlantDao(getDatabase());
         Klant klant = new Klant();
         klant.setAchternaam(achternaam);
         boolean exists = klantDao.existsByAchternaamKlant(klant);
@@ -323,7 +347,8 @@ public class Model {
     
     
     public int createBestelling(int idKlant, int idAccount){
-        BestellingDAO bestellingDao = new BestellingDAO();
+        BestellingDaoFactory  bestellingDaoFactory = new BestellingDaoFactory ();
+        BestellingDAO bestellingDao = bestellingDaoFactory.getBestellingDao(getDatabase());
         Bestelling bestelling = new Bestelling();
         bestelling.setIdBestelling(0);
         bestelling.setIdKlant(idKlant);
@@ -336,7 +361,8 @@ public class Model {
     }
     
     public void deleteBestelling(int idBestelling){
-        BestellingDAO bestellingDao = new BestellingDAO();
+        BestellingDaoFactory  bestellingDaoFactory = new BestellingDaoFactory ();
+        BestellingDAO bestellingDao = bestellingDaoFactory.getBestellingDao(getDatabase());
         Bestelling bestelling = new Bestelling();
         bestelling.setIdBestelling(idBestelling);
         
@@ -346,7 +372,8 @@ public class Model {
     
     public Bestelling readByIdBestelling(int idBestelling){
         
-        BestellingDAO bestellingDao = new BestellingDAO();
+        BestellingDaoFactory  bestellingDaoFactory = new BestellingDaoFactory ();
+        BestellingDAO bestellingDao = bestellingDaoFactory.getBestellingDao(getDatabase());
         Bestelling bestelling = new Bestelling();
         bestelling.setIdBestelling(idBestelling);
         Bestelling gevondenBestelling = bestellingDao.readByIdBestelling(bestelling);
@@ -358,7 +385,8 @@ public class Model {
     
     public boolean existsByIdBestelling(int idBestelling){
         
-        BestellingDAO bestellingDao = new BestellingDAO();
+        BestellingDaoFactory  bestellingDaoFactory = new BestellingDaoFactory ();
+        BestellingDAO bestellingDao = bestellingDaoFactory.getBestellingDao(getDatabase());
         Bestelling bestelling = new Bestelling();
         bestelling.setIdBestelling(idBestelling);
         boolean exists = bestellingDao.existsByIdBestelling(bestelling);
@@ -370,7 +398,8 @@ public class Model {
     
     
     public Set<Bestelling> readAllBestelling(){
-        BestellingDAO bestellingDao = new BestellingDAO();
+        BestellingDaoFactory  bestellingDaoFactory = new BestellingDaoFactory ();
+        BestellingDAO bestellingDao = bestellingDaoFactory.getBestellingDao(getDatabase());
         Set<Bestelling> bestellingen = bestellingDao.readAll();
        
         return bestellingen;
@@ -379,7 +408,8 @@ public class Model {
     
     public Set<Bestelling> readByIdKlantBestelling(int idKlant){
         
-        BestellingDAO bestellingDao = new BestellingDAO();
+        BestellingDaoFactory  bestellingDaoFactory = new BestellingDaoFactory ();
+        BestellingDAO bestellingDao = bestellingDaoFactory.getBestellingDao(getDatabase());
         Bestelling bestelling = new Bestelling();
         bestelling.setIdKlant(idKlant);
         Set<Bestelling> bestellingen = bestellingDao.readByIdKlant(bestelling);
@@ -388,7 +418,8 @@ public class Model {
     }
     
     public void updateBestelling(int idBestelling, int idKlant, int idAccount){
-        BestellingDAO bestellingDao = new BestellingDAO();
+        BestellingDaoFactory  bestellingDaoFactory = new BestellingDaoFactory ();
+        BestellingDAO bestellingDao = bestellingDaoFactory.getBestellingDao(getDatabase());
         Bestelling bestelling = new Bestelling();
         
         bestelling.setIdBestelling(idBestelling);
@@ -401,7 +432,8 @@ public class Model {
     }
     
     public void createBestelArtikel(int idBestelling, int idArtikel, int aantal){
-        BestelArtikelDAO bestelArtikelDao = new BestelArtikelDAO();
+        BestelArtikelDaofactory bestelArtikelDaoFactory = new BestelArtikelDaofactory ();
+        BestelArtikelDAO bestelArtikelDao = bestelArtikelDaoFactory.getBestelArtikelDao(getDatabase());
         BestelArtikel bestelArtikel = new BestelArtikel();
         bestelArtikel.setIdBestelling(idBestelling);
         bestelArtikel.setIdArtikel(idArtikel);
@@ -412,7 +444,9 @@ public class Model {
     }
     
     public void deleteBestelArtikel(int idBestelling, int idArtikel){
-        BestelArtikelDAO bestelArtikelDao = new BestelArtikelDAO();
+        BestelArtikelDaofactory bestelArtikelDaoFactory = new BestelArtikelDaofactory ();
+        BestelArtikelDAO bestelArtikelDao = bestelArtikelDaoFactory.getBestelArtikelDao(getDatabase());
+
         BestelArtikel bestelArtikel = new BestelArtikel();
         bestelArtikel.setIdBestelling(idBestelling);
         bestelArtikel.setIdArtikel(idArtikel);
@@ -423,38 +457,46 @@ public class Model {
     }
     
     public BestelArtikel readByIdBestellingIdArtikel(int idBestelling, int idArtikel){
-        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikelDaofactory bestelArtikelDaoFactory = new BestelArtikelDaofactory ();
+        BestelArtikelDAO bestelArtikelDao = bestelArtikelDaoFactory.getBestelArtikelDao(getDatabase());
+
         BestelArtikel bestelArtikel = new BestelArtikel();
         bestelArtikel.setIdBestelling(idBestelling);
         bestelArtikel.setIdArtikel(idArtikel);
         
-        BestelArtikel gevondenBestelArtikel=bestelArtikelDoa.readByIdBestellingIdArtikel(bestelArtikel);
+        BestelArtikel gevondenBestelArtikel=bestelArtikelDao.readByIdBestellingIdArtikel(bestelArtikel);
         
         return gevondenBestelArtikel;
   
     }
     
     public boolean existsByIdBestellingIdArtikel(int idBestelling, int idArtikel){
-        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikelDaofactory bestelArtikelDaoFactory = new BestelArtikelDaofactory ();
+        BestelArtikelDAO bestelArtikelDao = bestelArtikelDaoFactory.getBestelArtikelDao(getDatabase());
+
         BestelArtikel bestelArtikel = new BestelArtikel();
         bestelArtikel.setIdBestelling(idBestelling);
         bestelArtikel.setIdArtikel(idArtikel);
         
-        boolean exists=bestelArtikelDoa.existsByIdBestellingIdArtikel(bestelArtikel);
+        boolean exists=bestelArtikelDao.existsByIdBestellingIdArtikel(bestelArtikel);
         
         return exists;
   
     }
     
     public Set<BestelArtikel> readAllBestelArtikel(){
-        BestelArtikelDAO bestelArtikelDao = new BestelArtikelDAO();
+        BestelArtikelDaofactory bestelArtikelDaoFactory = new BestelArtikelDaofactory ();
+        BestelArtikelDAO bestelArtikelDao = bestelArtikelDaoFactory.getBestelArtikelDao(getDatabase());
+
         Set<BestelArtikel> bestelArtikelen = bestelArtikelDao.readAll();
 
         return bestelArtikelen;
     }
     
     public Set<BestelArtikel> readByIdBestellingBestelArtikel(int idBestelling){
-        BestelArtikelDAO bestelArtikelDao = new BestelArtikelDAO();
+        BestelArtikelDaofactory bestelArtikelDaoFactory = new BestelArtikelDaofactory ();
+        BestelArtikelDAO bestelArtikelDao = bestelArtikelDaoFactory.getBestelArtikelDao(getDatabase());
+
         BestelArtikel bestelArtikel = new BestelArtikel();
         bestelArtikel.setIdBestelling(idBestelling);
       
@@ -465,13 +507,15 @@ public class Model {
     }
     
     public void updateBestelArtikel(int idBestelling, int idArtikel, int aantal){
-        BestelArtikelDAO bestelArtikelDoa = new BestelArtikelDAO();
+        BestelArtikelDaofactory bestelArtikelDaoFactory = new BestelArtikelDaofactory ();
+        BestelArtikelDAO bestelArtikelDao = bestelArtikelDaoFactory.getBestelArtikelDao(getDatabase());
+
         BestelArtikel bestelArtikel = new BestelArtikel();
         bestelArtikel.setIdBestelling(idBestelling);
         bestelArtikel.setIdArtikel(idArtikel);
         bestelArtikel.setAantal(aantal);
    
-        bestelArtikelDoa.update(bestelArtikel);
+        bestelArtikelDao.update(bestelArtikel);
       
   
     }

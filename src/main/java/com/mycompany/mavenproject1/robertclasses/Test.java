@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package com.mycompany.mavenproject1.robertclasses;
 
 import com.mycompany.mavenproject1.database.dao.ArtikelDAO;

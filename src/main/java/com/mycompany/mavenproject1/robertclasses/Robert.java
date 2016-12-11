@@ -7,11 +7,16 @@ package com.mycompany.mavenproject1.robertclasses;
 import com.mycompany.mavenproject1.database.dao.AccounttypeDAO;
 import com.mycompany.mavenproject1.model.Accounttype;
 import com.mycompany.mavenproject1.database.dao.AccountDAO;
+import com.mycompany.mavenproject1.database.daofactory.AccounttypeDaoFactory;
 import com.mycompany.mavenproject1.model.Account;
 
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
+import com.mycompany.mavenproject1.database.dao.AccountDAO;
+import com.mycompany.mavenproject1.database.dao.AccounttypeDAO;
+import com.mycompany.mavenproject1.database.dao.*;
+import com.mycompany.mavenproject1.database.daofactory.*;
 
 
 /**
@@ -22,9 +27,10 @@ public class Robert {
     
     
     // maak account om dat ik geen onderhoudsscherm accounts heb en je ander foreign key problemen krijgt
-    private static void maakAccountTypeRecord(){
+    private static void maakAccountTypeRecord(String database){
         
-        AccounttypeDAO accounttypeDao = new AccounttypeDAO();
+        AccounttypeDaoFactory accounttypeDaoFactory = new AccounttypeDaoFactory ();
+        AccounttypeDAO accounttypeDao = accounttypeDaoFactory.getAccounttypeDao(database);
         Accounttype accounttype = new Accounttype();
         accounttype.setId(1);
         accounttype.setTYpe("admin");
@@ -36,8 +42,9 @@ public class Robert {
     }
     
     
-    private static void maakAccountRecord(){
-        AccountDAO accountDao = new AccountDAO();
+    private static void maakAccountRecord(String database){
+        AccountDaoFactory accountDaoFactory = new AccountDaoFactory ();
+        AccountDAO accountDao = accountDaoFactory.getAccountDao(database);
         Account account = new Account();
         account.setIdAccount(1);
         account.setGebruikersnaam("Robert Rook");
@@ -51,9 +58,10 @@ public class Robert {
         
     }
     
+    // nog verder doen
     public static void maakAccount(){
-        maakAccountTypeRecord();
-        maakAccountRecord();
+        maakAccountTypeRecord("MySql");
+        maakAccountRecord("MySql");
     }
  
             

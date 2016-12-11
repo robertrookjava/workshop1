@@ -18,7 +18,9 @@ import java.util.Set;
  *
  * @author robertrook
  */
-public class BestelArtikelDAO {
+public abstract class BestelArtikelDAO {
+    
+    protected abstract String getDatabase();
     
     
     
@@ -31,7 +33,7 @@ public class BestelArtikelDAO {
         ResultSet result = null;
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
@@ -73,7 +75,7 @@ public class BestelArtikelDAO {
         // Load the JDBC MySQL Driver
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
 
@@ -108,7 +110,7 @@ public class BestelArtikelDAO {
         ResultSet result = null;
         BestelArtikel gevondenBestelArtikel = new BestelArtikel();
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -149,7 +151,7 @@ public class BestelArtikelDAO {
         ResultSet result = null;
         BestelArtikel gevondenBestelArtikel = new BestelArtikel();
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -187,7 +189,7 @@ public class BestelArtikelDAO {
         Set<BestelArtikel> bestelArtikelen = new HashSet<>();
       
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM BestelArtikel";
             preparedStatement = connection.prepareStatement(query);
@@ -228,7 +230,7 @@ public class BestelArtikelDAO {
         Set<BestelArtikel> bestelArtikelen = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -275,7 +277,7 @@ public class BestelArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
 
 

@@ -20,7 +20,8 @@ import java.util.*;
  *
  * @author robertrook
  */
-public class BestellingDAO {
+public abstract class BestellingDAO {
+    protected abstract String getDatabase();
     
     
     public int create(Bestelling bestelling)   { // geeft de idBestelling (auto increment) terug
@@ -33,7 +34,7 @@ public class BestellingDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
@@ -88,7 +89,7 @@ public class BestellingDAO {
         
         try {
             // Load the JDBC MySQL Driver
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "DELETE FROM Bestelling WHERE idBestelling = ?";
 
@@ -121,7 +122,7 @@ public class BestellingDAO {
         Bestelling gevondenBestelling = new Bestelling();
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Bestelling WHERE idBestelling = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -164,7 +165,7 @@ public class BestellingDAO {
         boolean exists = false;
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Bestelling WHERE idBestelling = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -201,7 +202,7 @@ public class BestellingDAO {
         Set<Bestelling> bestellingen = new HashSet<>();
       
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Bestelling";
             preparedStatement = connection.prepareStatement(query);
@@ -243,7 +244,7 @@ public class BestellingDAO {
         Set<Bestelling> bestellingen = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
 
             String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
             preparedStatement = connection.prepareStatement(query);

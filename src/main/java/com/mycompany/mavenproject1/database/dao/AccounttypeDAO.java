@@ -16,7 +16,9 @@ import java.sql.SQLException;
  *
  * @author robertrook
  */
-public class AccounttypeDAO {
+public abstract class AccounttypeDAO {
+    
+    protected abstract String getDatabase();
     
     
    
@@ -28,7 +30,7 @@ public class AccounttypeDAO {
         ResultSet result = null;
         
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getConnection(getDatabase());
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
