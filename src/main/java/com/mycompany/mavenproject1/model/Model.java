@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 import com.mycompany.mavenproject1.database.daofactory.*;
+import com.mycompany.mavenproject1.database.Database;
 
 /**
  *
@@ -21,14 +22,14 @@ public class Model {
     
     // aanmaken van 1 accound  zonder onderhoudsscherm 
     
-    private String database;
+    private Database database;
     
-    public void setDatabase (String database){
+    public void setDatabase (Database database){
         this.database = database;
         
     }
     
-    public String getDatabase (){
+    public Database getDatabase (){
         return this.database;
     }
     

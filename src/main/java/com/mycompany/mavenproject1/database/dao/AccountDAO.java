@@ -18,7 +18,7 @@ import com.mycompany.mavenproject1.database.*;
 public abstract class AccountDAO {
     
     
-    protected abstract String getDatabase();
+    protected abstract Database getDatabase();
    
     
     public void create(Account account)   {
@@ -28,8 +28,11 @@ public abstract class AccountDAO {
         ResultSet result = null;
         
         try {
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
             
-            connection = ConnectionManager.getConnection(getDatabase());
+  
             String query = "INSERT INTO Account (idAccount, Gebruikersnaam, Wachtwoord, Datum_Aanmaak,accountype_id) VALUES(?, ?, ?, ?, ?)";
 
             preparedStatement = connection.prepareStatement(query);
@@ -74,7 +77,10 @@ public abstract class AccountDAO {
         
         try {
         // Load the JDBC MySQL Driver
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
+            
 
 
 
@@ -116,7 +122,10 @@ public abstract class AccountDAO {
         
             
 
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
+            
 
             String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
 
@@ -166,7 +175,10 @@ public abstract class AccountDAO {
         try {
        
 
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
+            
             String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
 
             
@@ -209,7 +221,10 @@ public abstract class AccountDAO {
         
         try {
         
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
+            
 
             String query = "SELECT * FROM Account WHERE account.Gebruikersnaam = ?";
 

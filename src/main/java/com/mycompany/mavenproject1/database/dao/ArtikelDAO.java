@@ -19,7 +19,8 @@ import com.mycompany.mavenproject1.database.*;
  */
 public abstract class ArtikelDAO {
     
-    protected abstract String getDatabase();
+    protected abstract Database getDatabase();
+
 
    
     
@@ -32,7 +33,9 @@ public abstract class ArtikelDAO {
         
         try {
         
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
@@ -73,7 +76,9 @@ public abstract class ArtikelDAO {
         // Load the JDBC MySQL Driver
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
 
 
@@ -110,7 +115,9 @@ public abstract class ArtikelDAO {
         Artikel gevondenArtikel = new Artikel();
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Artikel WHERE Artikel.idArtikel = ?";
 
@@ -160,7 +167,9 @@ public abstract class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Artikel WHERE Artikel.idArtikel = ?";
 
@@ -205,7 +214,9 @@ public abstract class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM BestelArtikel WHERE bestelartikel.idArtikel = ?";
 
@@ -252,7 +263,9 @@ public abstract class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -293,7 +306,9 @@ public abstract class ArtikelDAO {
         Set<Artikel> artikelen = new HashSet<>();
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Artikel";
 
@@ -338,7 +353,9 @@ public abstract class ArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Artikel WHERE Artikel.Naam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -383,7 +400,9 @@ public abstract class ArtikelDAO {
         
         try {
         
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
 
             String query = "UPDATE Artikel SET Artikel.naam = ?, "

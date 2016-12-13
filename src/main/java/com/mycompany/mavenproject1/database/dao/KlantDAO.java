@@ -6,6 +6,9 @@
 package com.mycompany.mavenproject1.database.dao;
 
 import com.mycompany.mavenproject1.database.ConnectionManager;
+import com.mycompany.mavenproject1.database.ConnectionManager2;
+import com.mycompany.mavenproject1.database.ConnectionManagerFactory;
+import com.mycompany.mavenproject1.database.Database;
 import com.mycompany.mavenproject1.model.Bestelling;
 import com.mycompany.mavenproject1.model.Klant;
 import java.sql.Connection;
@@ -21,7 +24,8 @@ import java.util.Set;
  * @author robertrook
  */
 public abstract class KlantDAO {
-    protected abstract String getDatabase();
+    protected abstract Database getDatabase();
+
     
     
     
@@ -35,7 +39,9 @@ public abstract class KlantDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
             String query = "INSERT INTO KLANT"
 		+ "(IDKLANT, VOORNAAM, ACHTERNAAM, TUSSENVOEGSEL, TELEFOONNUMMER, EMAILADRES) VALUES"
 		+ "(?,?,?,?,?,?)";
@@ -81,7 +87,9 @@ public abstract class KlantDAO {
         
         try {
             // Load the JDBC MySQL Driver
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "DELETE FROM Klant WHERE idKlant = ?";
 
@@ -115,7 +123,9 @@ public abstract class KlantDAO {
         Klant gevondenKlant = new Klant();
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -158,7 +168,9 @@ public abstract class KlantDAO {
         Klant gevondenKlant = new Klant();
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -195,7 +207,9 @@ public abstract class KlantDAO {
         Set<Bestelling> bestellingen = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -245,7 +259,9 @@ public abstract class KlantDAO {
         Set<Bestelling> bestellingen = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -290,7 +306,9 @@ public abstract class KlantDAO {
         Set<Klant> klanten = new HashSet<>();
       
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Klant";
             preparedStatement = connection.prepareStatement(query);
@@ -334,7 +352,9 @@ public abstract class KlantDAO {
         Set<Klant> klanten = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -385,7 +405,9 @@ public abstract class KlantDAO {
         Set<Klant> klanten = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -423,7 +445,9 @@ public abstract class KlantDAO {
         ResultSet result = null; 
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
 
 

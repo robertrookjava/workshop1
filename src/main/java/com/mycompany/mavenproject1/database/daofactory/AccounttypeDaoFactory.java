@@ -7,6 +7,7 @@ package com.mycompany.mavenproject1.database.daofactory;
 import com.mycompany.mavenproject1.database.dao.*;
 import com.mycompany.mavenproject1.database.daoMySQL.*;
 import com.mycompany.mavenproject1.database.daoOracle.*;
+import com.mycompany.mavenproject1.database.Database;
 
 
 /**
@@ -14,14 +15,20 @@ import com.mycompany.mavenproject1.database.daoOracle.*;
  * @author robertrook
  */
 public class AccounttypeDaoFactory {
-    public AccounttypeDAO getAccounttypeDao (String database){
-       if (database.equals("MySql")){
-           return new AccounttypeDAOMySQL();
-       }
-       else if (database.equals("Oracle")){
-           return new AccounttypeDAOOracle();
-       }
-       return null;
+    public AccounttypeDAO getAccounttypeDao (Database database){
        
-   }
+        switch (database) {
+            case MySQL:
+                return new AccounttypeDAOMySQL();
+                         
+            case Oracle:
+                return new AccounttypeDAOOracle();
+
+                    
+            default:
+                return new AccounttypeDAOMySQL();
+       
+            }
+        
+    }
 }

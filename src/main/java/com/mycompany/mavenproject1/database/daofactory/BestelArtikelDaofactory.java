@@ -5,23 +5,30 @@
  */
 package com.mycompany.mavenproject1.database.daofactory;
 import com.mycompany.mavenproject1.database.dao.BestelArtikelDAO;
+import com.mycompany.mavenproject1.database.daoMySQL.ArtikelDAOMySQL;
 import com.mycompany.mavenproject1.database.daoMySQL.BestelArtikelDAOMySQL;
+import com.mycompany.mavenproject1.database.daoOracle.ArtikelDAOOracle;
 import com.mycompany.mavenproject1.database.daoOracle.BestelArtikelDAOOracle;
+import com.mycompany.mavenproject1.database.Database;
 
 /**
  *
  * @author robertrook
  */
 public class BestelArtikelDaofactory {
-    public BestelArtikelDAO getBestelArtikelDao (String database){
-       if (database.equals("MySql")){
-           return new BestelArtikelDAOMySQL();
-       }
-       else if (database.equals("Oracle")){
-           return new BestelArtikelDAOOracle();
-       }
-       return null;
+    public BestelArtikelDAO getBestelArtikelDao (Database database){
+
+        switch (database) {
+            case MySQL:
+                return new BestelArtikelDAOMySQL();
+                         
+            case Oracle:
+                return new BestelArtikelDAOOracle();
+                  
+            default:
+                return new BestelArtikelDAOOracle();
        
-   }
+        }
+    }
     
 }

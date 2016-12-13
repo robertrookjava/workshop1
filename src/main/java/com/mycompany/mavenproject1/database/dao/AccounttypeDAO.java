@@ -6,6 +6,9 @@
 package com.mycompany.mavenproject1.database.dao;
 
 import com.mycompany.mavenproject1.database.ConnectionManager;
+import com.mycompany.mavenproject1.database.ConnectionManager2;
+import com.mycompany.mavenproject1.database.ConnectionManagerFactory;
+import com.mycompany.mavenproject1.database.Database;
 import com.mycompany.mavenproject1.model.Accounttype;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +21,7 @@ import java.sql.SQLException;
  */
 public abstract class AccounttypeDAO {
     
-    protected abstract String getDatabase();
+    protected abstract Database getDatabase();
     
     
    
@@ -30,7 +33,9 @@ public abstract class AccounttypeDAO {
         ResultSet result = null;
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 

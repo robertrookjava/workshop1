@@ -6,6 +6,9 @@
 package com.mycompany.mavenproject1.database.dao;
 
 import com.mycompany.mavenproject1.database.ConnectionManager;
+import com.mycompany.mavenproject1.database.ConnectionManager2;
+import com.mycompany.mavenproject1.database.ConnectionManagerFactory;
+import com.mycompany.mavenproject1.database.Database;
 import com.mycompany.mavenproject1.model.BestelArtikel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +23,8 @@ import java.util.Set;
  */
 public abstract class BestelArtikelDAO {
     
-    protected abstract String getDatabase();
+    protected abstract Database getDatabase();
+
     
     
     
@@ -33,7 +37,9 @@ public abstract class BestelArtikelDAO {
         ResultSet result = null;
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
@@ -75,7 +81,9 @@ public abstract class BestelArtikelDAO {
         // Load the JDBC MySQL Driver
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
 
@@ -110,7 +118,9 @@ public abstract class BestelArtikelDAO {
         ResultSet result = null;
         BestelArtikel gevondenBestelArtikel = new BestelArtikel();
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -151,7 +161,9 @@ public abstract class BestelArtikelDAO {
         ResultSet result = null;
         BestelArtikel gevondenBestelArtikel = new BestelArtikel();
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -189,7 +201,9 @@ public abstract class BestelArtikelDAO {
         Set<BestelArtikel> bestelArtikelen = new HashSet<>();
       
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM BestelArtikel";
             preparedStatement = connection.prepareStatement(query);
@@ -230,7 +244,9 @@ public abstract class BestelArtikelDAO {
         Set<BestelArtikel> bestelArtikelen = new HashSet<>();
        
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
             String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ?";
             preparedStatement = connection.prepareStatement(query);
@@ -277,7 +293,9 @@ public abstract class BestelArtikelDAO {
         
         
         try {
-            connection = ConnectionManager.getConnection(getDatabase());
+            ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
+            ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
+            connection = connectionManager.getConnection();
 
 
 

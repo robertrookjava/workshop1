@@ -12,6 +12,7 @@ import com.mycompany.mavenproject1.database.daofactory.AccounttypeDaoFactory;
 import com.mycompany.mavenproject1.model.Account;
 import com.mycompany.mavenproject1.model.Accounttype;
 import java.util.Date;
+import com.mycompany.mavenproject1.database.Database;
 
 /**
  *
@@ -20,7 +21,7 @@ import java.util.Date;
 public class Crud {
     
     // maak account om dat ik geen onderhoudsscherm accounts heb en je ander foreign key problemen krijgt
-    private static void maakAccountTypeRecord(String database){
+    private static void maakAccountTypeRecord(Database database){
         
         AccounttypeDaoFactory accounttypeDaoFactory = new AccounttypeDaoFactory ();
         AccounttypeDAO accounttypeDao = accounttypeDaoFactory.getAccounttypeDao(database);
@@ -33,10 +34,10 @@ public class Crud {
       
     }
     
-    private static boolean bestaatAccount(int i){
+    private static boolean bestaatAccount(int i, Database database){
         boolean output = false;
         AccountDaoFactory accountDaoFactory = new AccountDaoFactory ();
-        AccountDAO accountDao = accountDaoFactory.getAccountDao("MySql");
+        AccountDAO accountDao = accountDaoFactory.getAccountDao(database);
         Account account = new Account();
         account.setIdAccount(1);
       
@@ -52,9 +53,9 @@ public class Crud {
     
     
     
-    private static void maakAccountRecord(){
+    private static void maakAccountRecord(Database database){
         AccountDaoFactory accountDaoFactory = new AccountDaoFactory ();
-        AccountDAO accountDao = accountDaoFactory.getAccountDao("MySql");
+        AccountDAO accountDao = accountDaoFactory.getAccountDao(database);
         Account account = new Account();
         account.setIdAccount(1);
         account.setGebruikersnaam("Robert Rook");
@@ -69,12 +70,12 @@ public class Crud {
     }
     
 
-    public static void maakAccount(){
-        boolean bestaatAccount1 = bestaatAccount(1);
+    public static void maakAccount(Database database){
+        boolean bestaatAccount1 = bestaatAccount(1, database);
          
         if (!bestaatAccount1){
-            maakAccountTypeRecord("MySql");
-            maakAccountRecord();
+            maakAccountTypeRecord(database);
+            maakAccountRecord(database);
         }
      }
  

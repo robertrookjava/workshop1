@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.mavenproject1.database.daoMySQL;
+import com.mycompany.mavenproject1.database.Database;
 import com.mycompany.mavenproject1.database.dao.*;
 
 /**
@@ -12,9 +13,10 @@ import com.mycompany.mavenproject1.database.dao.*;
  */
 public class AccountDAOMySql extends AccountDAO {
     
-    protected String database = "MySql";
+    protected Database database = Database.MySQL;
     
-    public String getDatabase(){
+    @Override
+    public Database getDatabase(){
         return this.database;
     }
     

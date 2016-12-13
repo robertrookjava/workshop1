@@ -6,23 +6,32 @@
 package com.mycompany.mavenproject1.database.daofactory;
 
 import com.mycompany.mavenproject1.database.dao.ArtikelDAO;
+import com.mycompany.mavenproject1.database.daoMySQL.AccounttypeDAOMySQL;
 import com.mycompany.mavenproject1.database.daoMySQL.ArtikelDAOMySQL;
+import com.mycompany.mavenproject1.database.daoOracle.AccounttypeDAOOracle;
 import com.mycompany.mavenproject1.database.daoOracle.ArtikelDAOOracle;
+import com.mycompany.mavenproject1.database.Database;
 
 /**
  *
  * @author robertrook
  */
 public class ArtikelDaoFactory {
-    public ArtikelDAO getArtikelDao (String database){
-       if (database.equals("MySql")){
-           return new ArtikelDAOMySQL();
-       }
-       else if (database.equals("Oracle")){
-           return new ArtikelDAOOracle();
-       }
-       return null;
+    public ArtikelDAO getArtikelDao (Database  database){
        
-   }
+    
+        switch (database) {
+            case MySQL:
+                return new ArtikelDAOMySQL();
+                         
+            case Oracle:
+                return new ArtikelDAOOracle();
+                  
+            default:
+                return new ArtikelDAOMySQL();
+       
+            }
+        
+    }
     
 }

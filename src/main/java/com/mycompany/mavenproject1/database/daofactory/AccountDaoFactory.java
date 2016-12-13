@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package com.mycompany.mavenproject1.database.daofactory;
+import com.mycompany.mavenproject1.database.ConnectionManagerMySQL;
+import com.mycompany.mavenproject1.database.ConnectionManagerOracle;
+import com.mycompany.mavenproject1.database.Database;
 import com.mycompany.mavenproject1.database.dao.*;
 import com.mycompany.mavenproject1.database.daoMySQL.*;
 import com.mycompany.mavenproject1.database.daoOracle.*;
@@ -14,18 +17,24 @@ import com.mycompany.mavenproject1.database.daoOracle.*;
  * @author robertrook
  */
 public class AccountDaoFactory {
-   public AccountDAO getAccountDao (String database){
-       if (database.equals("MySql")){
-           return new AccountDAOMySql();
-       }
-       else if (database.equals("Oracle")){
-           return new AccountDAOOracle();
-       }
-       return null;
+    public AccountDAO getAccountDao (Database database){
        
-   }
+       
+        switch (database) {
+            case MySQL:
+                return new AccountDAOMySql();
+                         
+            case Oracle:
+                return new AccountDAOOracle();
+
+                    
+            default:
+                return new AccountDAOMySql();
+       
+            }
+        }
 
         
         
     
-}
+    }

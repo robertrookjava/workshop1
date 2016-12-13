@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.mavenproject1;
-import com.mycompany.mavenproject1.database.ConnectionManager;
+import com.mycompany.mavenproject1.database.ConnectionManager2;
 import com.mycompany.mavenproject1.database.dao.*;
 import com.mycompany.mavenproject1.model.*;
 import com.mycompany.mavenproject1.view.*;

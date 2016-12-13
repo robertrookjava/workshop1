@@ -8,6 +8,7 @@ import com.mycompany.mavenproject1.model.*;
 import com.mycompany.mavenproject1.view.*;
 import java.util.Set;
 import java.math.BigDecimal;
+import com.mycompany.mavenproject1.database.StringToDatabase;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Controller {
     private Model model;
     private View view;
     private boolean exit = false;
+    private StringToDatabase stringToDatabase = new StringToDatabase();
     
     public Controller(Model model, View view) {
         this.model = model;
@@ -122,9 +124,11 @@ public class Controller {
     private void verwerkInput_db(){
         System.out.println("verwerk db");
         view.menuDB();
-        String database = view.getUserInputDatabase();
-        model.setDatabase(database);
+        String database = view.getUserInputDatabase();  
+        model.setDatabase(stringToDatabase.toDatabase(database));
     }
+    
+    
     
     private void verwerkInput_a1(){
         System.out.println("verwerk a1");

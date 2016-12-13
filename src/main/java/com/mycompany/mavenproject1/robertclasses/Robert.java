@@ -17,6 +17,7 @@ import com.mycompany.mavenproject1.database.dao.AccountDAO;
 import com.mycompany.mavenproject1.database.dao.AccounttypeDAO;
 import com.mycompany.mavenproject1.database.dao.*;
 import com.mycompany.mavenproject1.database.daofactory.*;
+import com.mycompany.mavenproject1.database.Database;
 
 
 /**
@@ -27,7 +28,7 @@ public class Robert {
     
     
     // maak account om dat ik geen onderhoudsscherm accounts heb en je ander foreign key problemen krijgt
-    private static void maakAccountTypeRecord(String database){
+    private static void maakAccountTypeRecord(Database database){
         
         AccounttypeDaoFactory accounttypeDaoFactory = new AccounttypeDaoFactory ();
         AccounttypeDAO accounttypeDao = accounttypeDaoFactory.getAccounttypeDao(database);
@@ -42,7 +43,7 @@ public class Robert {
     }
     
     
-    private static void maakAccountRecord(String database){
+    private static void maakAccountRecord(Database database){
         AccountDaoFactory accountDaoFactory = new AccountDaoFactory ();
         AccountDAO accountDao = accountDaoFactory.getAccountDao(database);
         Account account = new Account();
@@ -59,9 +60,9 @@ public class Robert {
     }
     
     // nog verder doen
-    public static void maakAccount(){
-        maakAccountTypeRecord("MySql");
-        maakAccountRecord("MySql");
+    public static void maakAccount(Database database){
+        maakAccountTypeRecord(database);
+        maakAccountRecord(database);
     }
  
             
