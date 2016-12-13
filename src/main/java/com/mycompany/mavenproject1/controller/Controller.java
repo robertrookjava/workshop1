@@ -124,7 +124,7 @@ public class Controller {
     private void verwerkInput_db(){
         System.out.println("verwerk db");
         view.menuDB();
-        String database = view.getUserInputDatabase();  
+        String database = view.getUserInputDatabase(); 
         model.setDatabase(stringToDatabase.toDatabase(database));
     }
     

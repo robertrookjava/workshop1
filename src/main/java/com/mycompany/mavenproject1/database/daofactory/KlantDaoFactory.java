@@ -22,13 +22,13 @@ public class KlantDaoFactory {
     
    
     switch (database) {
-        case MySQL:
+        case MySQL:               
                 return new KlantDAOMySQL();
                          
-        case Oracle:
+        case Oracle:          
             return new KlantDAOOracle();
                   
-        default:
+        default:            
             return new KlantDAOMySQL();
        
         }

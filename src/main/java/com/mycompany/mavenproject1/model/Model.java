@@ -182,6 +182,7 @@ public class Model {
    
     
     public Set<Artikel> readAllArtikel () {
+
         ArtikelDaoFactory  artikelDaoFactory = new ArtikelDaoFactory ();
         ArtikelDAO artikelDao = artikelDaoFactory.getArtikelDao(getDatabase());
         Set<Artikel> artikelen = artikelDao.readAll();
