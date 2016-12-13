@@ -477,6 +477,9 @@ public class Controller {
     
     public void run(){
         String userInput="";
+        // eerste even vragen welke database je wil gebruiken
+        verwerkInput_db();
+        
         view.startScreen();
         view.menuScreen();
         while (!(userInput.equalsIgnoreCase("exit"))){
