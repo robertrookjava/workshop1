@@ -14,10 +14,20 @@ import com.mycompany.mavenproject1.database.dao.*;
 public class AccounttypeDAOMySQL extends AccounttypeDAO {
     
    protected Database database = Database.MySQL;
+   protected String SQLCreate = "INSERT INTO ACCOUNTYPE"
+                    + "(ID, TYPE) VALUES"
+                    + "(?,?)";
     
     @Override
     public Database getDatabase(){
         return this.database;
     }
+    
+  
+   @Override
+    public String getSQLCreate(){
+        return this.SQLCreate;
+    }
+    
     
 }

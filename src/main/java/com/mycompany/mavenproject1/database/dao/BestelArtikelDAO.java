@@ -24,6 +24,14 @@ import java.util.Set;
 public abstract class BestelArtikelDAO {
     
     protected abstract Database getDatabase();
+    protected abstract String getSQLcreate();
+    protected abstract String getSQLdelete();
+    protected abstract String getSQLreadByIdBestellingIdArtikel();
+    protected abstract String getSQLexistsByIdBestellingIdArtikel();
+    protected abstract String getSQLreadAll();
+    protected abstract String getSQLreadById();
+    protected abstract String getSQLupdate();
+    
 
     
     
@@ -43,10 +51,10 @@ public abstract class BestelArtikelDAO {
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
-            String query = "INSERT INTO BESTELARTIKEL"
-                    + "(IDBESTELLING, IDARTIKEL, AANTAL) VALUES"
-                    + "(?,?,?)";
-
+            //String query = "INSERT INTO BESTELARTIKEL"
+            //        + "(IDBESTELLING, IDARTIKEL, AANTAL) VALUES"
+            //        + "(?,?,?)";
+            String query = getSQLcreate();
 
 
             preparedStatement = connection.prepareStatement(query);
@@ -85,8 +93,8 @@ public abstract class BestelArtikelDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
-
+            //String query = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+            String query = getSQLdelete();
 
             preparedStatement = connection.prepareStatement(query);
 
@@ -122,7 +130,8 @@ public abstract class BestelArtikelDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+            //String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+            String query = getSQLreadByIdBestellingIdArtikel();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
             preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
@@ -165,7 +174,8 @@ public abstract class BestelArtikelDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+            //String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+            String query = getSQLexistsByIdBestellingIdArtikel();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
             preparedStatement.setInt(2, bestelArtikel.getIdArtikel());
@@ -205,7 +215,8 @@ public abstract class BestelArtikelDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM BestelArtikel";
+            //String query = "SELECT * FROM BestelArtikel";
+            String query = getSQLreadAll();
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery(query);
 
@@ -248,7 +259,8 @@ public abstract class BestelArtikelDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ?";
+            //String query = "SELECT * FROM BestelArtikel WHERE idBestelling = ?";
+            String query = getSQLreadById();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, bestelArtikel.getIdBestelling());
             result = preparedStatement.executeQuery();
@@ -299,9 +311,10 @@ public abstract class BestelArtikelDAO {
 
 
 
-            String query = "UPDATE BestelArtikel SET aantal = ? "
-                    + "WHERE idBestelling = ? and idArtikel = ?";
-
+            //String query = "UPDATE BestelArtikel SET aantal = ? "
+            //       + "WHERE idBestelling = ? and idArtikel = ?";
+            
+            String query = getSQLupdate();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, bestelArtikel.getAantal());
             preparedStatement.setInt(2, bestelArtikel.getIdBestelling());

@@ -13,10 +13,39 @@ import com.mycompany.mavenproject1.database.dao.*;
  */
 public class AccountDAOOracle extends AccountDAO{
     protected Database database = Database.Oracle;
-  
+    protected String SQLCreate = "INSERT INTO Account (idAccount, Gebruikersnaam, Wachtwoord, Datum_Aanmaak,accountype_id) VALUES(?, ?, ?, ?, ?)";
+    protected String SQLDelete = "DELETE FROM Account WHERE idAccount = ?";
+    protected String SQLReadByID = "SELECT * FROM Account WHERE Account.idAccount = ?";
+    protected String SQLBestaat =  "SELECT * FROM Account WHERE Account.idAccount = ?";
+    protected String SQLreadByGebruikersnaam = "SELECT * FROM Account WHERE account.Gebruikersnaam = ?";
+    
     @Override
     public Database getDatabase(){
         return this.database;
+    }
+ 
+    @Override
+    public String getSQLCreate(){
+        return this.SQLCreate;
+    }
+    @Override
+    public String getSQLDelete(){
+        return this.SQLDelete;
+    }
+    
+    @Override
+    public String getSQLReadByID(){
+        return this.SQLReadByID;
+    }
+    
+    @Override
+    public String getSQLBestaat(){
+        return this.SQLBestaat;
+    }
+    
+    @Override
+    public String getSQLreadByGebruikersnaam(){
+        return this.SQLreadByGebruikersnaam;
     }
     
 }

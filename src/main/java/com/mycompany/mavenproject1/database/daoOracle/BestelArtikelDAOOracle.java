@@ -13,10 +13,53 @@ import com.mycompany.mavenproject1.database.dao.*;
  */
 public class BestelArtikelDAOOracle extends BestelArtikelDAO {
     protected Database database = Database.Oracle;
-  
+    protected String SQLcreate = "INSERT INTO BESTELARTIKEL"
+                    + "(IDBESTELLING, IDARTIKEL, AANTAL) VALUES"
+                    + "(?,?,?)";
+    protected String SQLdelete = "DELETE FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+    protected String SQLreadByIdBestellingIdArtikel = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+    protected String SQLexistsByIdBestellingIdArtikel = "SELECT * FROM BestelArtikel WHERE idBestelling = ? and idArtikel = ?";
+    protected String SQLreadAll = "SELECT * FROM BestelArtikel";
+    protected String SQLreadById = "SELECT * FROM BestelArtikel WHERE idBestelling = ?";
+    protected String SQLupdate = "UPDATE BestelArtikel SET aantal = ? "
+                   + "WHERE idBestelling = ? and idArtikel = ?";
+    
     @Override
     public Database getDatabase(){
         return this.database;
+    }
+    
+    @Override
+    public String getSQLcreate(){
+        return this.SQLcreate;
+    }
+    @Override
+    public String getSQLdelete(){
+        return this.SQLdelete;
+    }
+    @Override
+    public String getSQLreadByIdBestellingIdArtikel(){
+        return this.SQLreadByIdBestellingIdArtikel;
+    }
+    
+    @Override
+    public String getSQLexistsByIdBestellingIdArtikel(){
+        return this.SQLexistsByIdBestellingIdArtikel;
+    }
+   
+   
+    @Override
+    public String getSQLreadAll(){
+        return this.SQLreadAll;
+    }
+    @Override
+    public String getSQLreadById(){
+        return this.SQLreadById;
+    }
+    
+    @Override
+    public String getSQLupdate(){
+        return this.SQLupdate;
     }
     
 }

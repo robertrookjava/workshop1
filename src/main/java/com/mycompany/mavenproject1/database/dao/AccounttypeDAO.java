@@ -22,6 +22,7 @@ import java.sql.SQLException;
 public abstract class AccounttypeDAO {
     
     protected abstract Database getDatabase();
+    protected abstract String getSQLCreate();
     
     
    
@@ -39,11 +40,11 @@ public abstract class AccounttypeDAO {
             // String query = "INSERT INTO Artikel (idArtikel, Naam, Prijs, Voorraad) VALUES(?, ?, ?, ?)";
             //String query = "INSERT INTO Artikel  VALUES (?, ?, ?, ?)";
 
-            String query = "INSERT INTO ACCOUNTYPE"
-                    + "(ID, TYPE) VALUES"
-                    + "(?,?)";
-
-
+            //String query = "INSERT INTO ACCOUNTYPE"
+            //        + "(ID, TYPE) VALUES"
+            //        + "(?,?)";
+            
+            String query = getSQLCreate();
 
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, accounttype.getId());

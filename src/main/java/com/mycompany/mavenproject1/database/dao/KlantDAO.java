@@ -25,6 +25,17 @@ import java.util.Set;
  */
 public abstract class KlantDAO {
     protected abstract Database getDatabase();
+    protected abstract String getSQLcreate();
+    protected abstract String getSQLdelete();
+    protected abstract String getSQLreadById();
+    protected abstract String getSQLexistsById();
+    protected abstract String getSQLreadByIdKlant();
+    protected abstract String getSQLexistsBestellingByIdKlant();
+    protected abstract String getSQLreadAll();
+    protected abstract String getSQLreadByAchternaam();
+    protected abstract String getSQLreadexistsByAchternaam();
+    protected abstract String getSQupdate();        
+    
 
     
     
@@ -42,9 +53,10 @@ public abstract class KlantDAO {
             ConnectionManagerFactory connectionManagerFactory = new ConnectionManagerFactory();
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
-            String query = "INSERT INTO KLANT"
-		+ "(IDKLANT, VOORNAAM, ACHTERNAAM, TUSSENVOEGSEL, TELEFOONNUMMER, EMAILADRES) VALUES"
-		+ "(?,?,?,?,?,?)";
+            // String query = "INSERT INTO KLANT"
+	    //	+ "(IDKLANT, VOORNAAM, ACHTERNAAM, TUSSENVOEGSEL, TELEFOONNUMMER, EMAILADRES) VALUES"
+	    //	+ "(?,?,?,?,?,?)";
+            String query = getSQLcreate();
         
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, klant.getIdKlant());
@@ -91,8 +103,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "DELETE FROM Klant WHERE idKlant = ?";
-
+            //String query = "DELETE FROM Klant WHERE idKlant = ?";
+            String query = getSQLdelete();
 
             preparedStatement = connection.prepareStatement(query);
 
@@ -127,7 +139,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
+            //String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
+            String query = getSQLreadById();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, klant.getIdKlant());
             result = preparedStatement.executeQuery();
@@ -172,7 +185,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
+            //String query = "SELECT * FROM Klant WHERE Klant.idKlant = ?";
+            String query = getSQLexistsById();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, klant.getIdKlant());
             result = preparedStatement.executeQuery();
@@ -211,7 +225,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
+            // String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
+            String query = getSQLreadByIdKlant();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, klant.getIdKlant());
             result = preparedStatement.executeQuery();
@@ -263,7 +278,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
+            //String query = "SELECT * FROM Bestelling WHERE idKlant = ?";
+            String query = getSQLexistsBestellingByIdKlant();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, klant.getIdKlant());
             result = preparedStatement.executeQuery();
@@ -310,7 +326,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM Klant";
+            //String query = "SELECT * FROM Klant";
+            String query = getSQLreadAll();
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery(query);
 
@@ -356,7 +373,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
+            // String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
+            String query = getSQLreadByAchternaam();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, klant.getAchternaam());
             result = preparedStatement.executeQuery();
@@ -409,7 +427,8 @@ public abstract class KlantDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
 
-            String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
+            // String query = "SELECT * FROM Klant WHERE Klant.Achternaam = ?";
+            String query = getSQLreadexistsByAchternaam();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, klant.getAchternaam());
             result = preparedStatement.executeQuery();
@@ -451,10 +470,11 @@ public abstract class KlantDAO {
 
 
 
-            String query = "UPDATE Klant SET Klant.Voornaam = ?, "
-                    + "klant.Achternaam = ?, klant.Tussenvoegsel = ?, klant.Telefoonnummer = ?, "
-                    + "klant.Emailadres = ?"
-                    + "WHERE Klant.idKlant = ?";
+            //String query = "UPDATE Klant SET Klant.Voornaam = ?, "
+            //        + "klant.Achternaam = ?, klant.Tussenvoegsel = ?, klant.Telefoonnummer = ?, "
+            //        + "klant.Emailadres = ?"
+            //        + "WHERE Klant.idKlant = ?";
+            String query = getSQupdate();
 
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, klant.getVoornaam());

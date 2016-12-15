@@ -19,6 +19,12 @@ public abstract class AccountDAO {
     
     
     protected abstract Database getDatabase();
+    protected abstract String getSQLCreate();
+    protected abstract String getSQLDelete();
+    protected abstract String getSQLReadByID();
+    protected abstract String getSQLBestaat();
+    protected abstract String getSQLreadByGebruikersnaam();
+    
    
     
     public void create(Account account)   {
@@ -33,8 +39,8 @@ public abstract class AccountDAO {
             connection = connectionManager.getConnection();
             
   
-            String query = "INSERT INTO Account (idAccount, Gebruikersnaam, Wachtwoord, Datum_Aanmaak,accountype_id) VALUES(?, ?, ?, ?, ?)";
-
+            // String query = "INSERT INTO Account (idAccount, Gebruikersnaam, Wachtwoord, Datum_Aanmaak,accountype_id) VALUES(?, ?, ?, ?, ?)";
+            String query = getSQLCreate();
             preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setInt(1, account.getIdAccount());
@@ -84,8 +90,8 @@ public abstract class AccountDAO {
 
 
 
-            String query = "DELETE FROM Account WHERE idAccount = ?";
-
+            // String query = "DELETE FROM Account WHERE idAccount = ?";
+            String query = getSQLDelete();
 
             preparedStatement = connection.prepareStatement(query);
 
@@ -127,8 +133,8 @@ public abstract class AccountDAO {
             connection = connectionManager.getConnection();
             
 
-            String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
-
+            //  String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
+            String query = getSQLReadByID();
 
 
             preparedStatement = connection.prepareStatement(query);
@@ -179,7 +185,8 @@ public abstract class AccountDAO {
             ConnectionManager connectionManager = connectionManagerFactory.getConnectionManager(getDatabase());
             connection = connectionManager.getConnection();
             
-            String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
+            // String query = "SELECT * FROM Account WHERE Account.idAccount = ?";
+            String query = getSQLBestaat();
 
             
 
@@ -226,8 +233,8 @@ public abstract class AccountDAO {
             connection = connectionManager.getConnection();
             
 
-            String query = "SELECT * FROM Account WHERE account.Gebruikersnaam = ?";
-
+            //String query = "SELECT * FROM Account WHERE account.Gebruikersnaam = ?";
+            String query = getSQLreadByGebruikersnaam();
             preparedStatement = connection.prepareStatement(query);
 
 
